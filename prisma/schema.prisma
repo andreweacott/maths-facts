@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id                   Int      @id @default(autoincrement())
+  username             String   @unique
+  passwordHash         String
+  profileImagePath     String?
+  characterImagePath   String?
+  characterName        String   @default("Mathsie")
+  settings             String   @default("{}")
+  createdAt            DateTime @default(now())
+  topics               Topic[]
+}
+
+model Topic {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  title       String
+  rawInput    String
+  createdAt   DateTime  @default(now())
+  messages    Message[]
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  topicId   Int
+  topic     Topic    @relation(fields: [topicId], references: [id])
+  role      String   // "user" | "assistant"
+  content   String
+  createdAt DateTime @default(now())
+}
