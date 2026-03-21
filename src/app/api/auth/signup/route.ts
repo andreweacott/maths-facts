@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { hashPassword, getSession } from "@/lib/auth";
+import { hashPassword, getSession, parseSettings } from "@/lib/auth";
 import type { SessionUser } from "@/types";
 
 export async function POST(req: NextRequest) {
@@ -8,6 +8,10 @@ export async function POST(req: NextRequest) {
 
   if (!username || !password) {
     return NextResponse.json({ error: "Username and password required" }, { status: 400 });
+  }
+
+  if (password.length < 6 || password.length > 72) {
+    return NextResponse.json({ error: "Password must be 6–72 characters" }, { status: 400 });
   }
 
   const existing = await prisma.user.findUnique({ where: { username } });
@@ -27,7 +31,7 @@ export async function POST(req: NextRequest) {
     profileImagePath: user.profileImagePath,
     characterImagePath: user.characterImagePath,
     characterName: user.characterName,
-    settings: JSON.parse(user.settings as string) ?? {},
+    settings: parseSettings(user.settings),
   } as SessionUser;
   await session.save();
 

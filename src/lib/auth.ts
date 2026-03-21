@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
-import type { SessionUser } from "@/types";
+import type { SessionUser, UserSettings } from "@/types";
 
 const SALT_ROUNDS = 12;
 
@@ -16,15 +16,23 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 export const sessionOptions = {
   password: process.env.SESSION_SECRET!,
   cookieName: "maths-facts-session",
-  cookieOptions: { secure: false },
+  cookieOptions: { secure: process.env.NODE_ENV === "production" },
 };
 
 export async function getSession() {
   return getIronSession<{ user?: SessionUser }>(await cookies(), sessionOptions);
 }
 
-export async function requireSession() {
+export async function requireSession(): Promise<SessionUser | null> {
   const session = await getSession();
-  if (!session.user) throw new Error("Not authenticated");
-  return session.user;
+  return session.user ?? null;
+}
+
+export function parseSettings(raw: unknown): UserSettings {
+  if (typeof raw !== "string") return {};
+  try {
+    return JSON.parse(raw) ?? {};
+  } catch {
+    return {};
+  }
 }

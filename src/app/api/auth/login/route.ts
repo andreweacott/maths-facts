@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { verifyPassword, getSession } from "@/lib/auth";
+import { verifyPassword, getSession, parseSettings } from "@/lib/auth";
 import type { SessionUser } from "@/types";
 
 export async function POST(req: NextRequest) {
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     profileImagePath: user.profileImagePath,
     characterImagePath: user.characterImagePath,
     characterName: user.characterName,
-    settings: JSON.parse(user.settings as string) ?? {},
+    settings: parseSettings(user.settings),
   } as SessionUser;
   await session.save();
 
