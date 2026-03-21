@@ -1,3 +1,5 @@
+// NOTE: User.settings is stored as a JSON string in SQLite.
+// Always JSON.parse() when reading from DB, JSON.stringify() when writing.
 export type SessionUser = {
   id: number;
   username: string;
