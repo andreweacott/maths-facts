@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { writeFile } from "fs/promises";
 import path from "path";
 import { requireSession } from "@/lib/auth";
-import { prisma } from "@/lib/db";
 
 const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp", "avif"];
 
@@ -38,12 +37,5 @@ export async function POST(req: NextRequest) {
   await writeFile(filepath, buffer);
 
   const imagePath = `/uploads/${filename}`;
-  const updateData =
-    field === "profile"
-      ? { profileImagePath: imagePath }
-      : { characterImagePath: imagePath };
-
-  await prisma.user.update({ where: { id: user.id }, data: updateData });
-
   return NextResponse.json({ path: imagePath });
 }

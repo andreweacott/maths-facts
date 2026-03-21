@@ -3,13 +3,16 @@ import { useRouter } from "next/navigation";
 import ImagePicker from "@/components/ImagePicker";
 
 async function saveImagePath(field: "profile" | "character", path: string) {
-  await fetch("/api/auth/me", {
+  const res = await fetch("/api/auth/me", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(
       field === "profile" ? { profileImagePath: path } : { characterImagePath: path }
     ),
   });
+  if (!res.ok) {
+    console.error("Failed to save image path:", await res.text());
+  }
 }
 
 export default function SetupPage() {

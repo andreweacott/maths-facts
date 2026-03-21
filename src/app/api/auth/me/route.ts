@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
+import { getSession, parseSettings } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
 export async function GET() {
@@ -13,14 +13,24 @@ export async function GET() {
     profileImagePath: user.profileImagePath,
     characterImagePath: user.characterImagePath,
     characterName: user.characterName,
-    settings: JSON.parse(user.settings as string) ?? {},
+    settings: parseSettings(user.settings),
   });
 }
 
 export async function PATCH(req: NextRequest) {
   const session = await getSession();
   if (!session.user) return NextResponse.json(null, { status: 401 });
-  const updates = await req.json(); // { profileImagePath? } | { characterImagePath? }
-  await prisma.user.update({ where: { id: session.user.id }, data: updates });
+  const body = await req.json();
+  const { profileImagePath, characterImagePath } = body as {
+    profileImagePath?: string;
+    characterImagePath?: string;
+  };
+  const data: Record<string, string> = {};
+  if (typeof profileImagePath === "string") data.profileImagePath = profileImagePath;
+  if (typeof characterImagePath === "string") data.characterImagePath = characterImagePath;
+  if (Object.keys(data).length === 0) {
+    return NextResponse.json({ error: "No valid fields" }, { status: 400 });
+  }
+  await prisma.user.update({ where: { id: session.user.id }, data });
   return NextResponse.json({ ok: true });
 }
