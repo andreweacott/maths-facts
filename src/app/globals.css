@@ -28,12 +28,9 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Rainbow gradient text */
+/* Solid heading text */
 .gradient-text {
-  background: linear-gradient(135deg, #7c3aed, #d946ef, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #fab700;
 }
 
 @keyframes rainbow-text {
@@ -288,12 +285,7 @@ body {
   border-color: #4338ca !important;
 }
 [data-theme="space"] .gradient-text {
-  background: linear-gradient(135deg, #818cf8, #c084fc, #f0abfc, #818cf8);
-  background-size: 200% 200%;
-  animation: rainbow-text 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #fbbf24;
 }
 [data-theme="space"] .input-fun {
   background: rgba(30, 27, 75, 0.6);
@@ -336,12 +328,7 @@ body {
   border-color: #48cae4 !important;
 }
 [data-theme="ocean"] .gradient-text {
-  background: linear-gradient(135deg, #0077b6, #00b4d8, #0096c7, #48cae4);
-  background-size: 200% 200%;
-  animation: rainbow-text 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #023e8a;
 }
 [data-theme="ocean"] .input-fun {
   border-color: #90e0ef;
@@ -375,8 +362,7 @@ body {
 [data-theme="sunset"] .card-fun::before { background: linear-gradient(135deg, #f97316, #ef4444, #ec4899); }
 [data-theme="sunset"] header { background: rgba(255,255,255,0.9) !important; border-color: #fca5a5 !important; }
 [data-theme="sunset"] .gradient-text {
-  background: linear-gradient(135deg, #ef4444, #f97316, #eab308);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #7f1d1d;
 }
 [data-theme="sunset"] .btn-fun { background: linear-gradient(135deg, #ef4444, #f97316, #ec4899); box-shadow: 0 6px 25px rgba(239, 68, 68, 0.4); }
 
@@ -390,8 +376,7 @@ body {
 [data-theme="forest"] .card-fun::before { background: linear-gradient(135deg, #065f46, #10b981, #34d399); }
 [data-theme="forest"] header { background: rgba(255,255,255,0.9) !important; border-color: #6ee7b7 !important; }
 [data-theme="forest"] .gradient-text {
-  background: linear-gradient(135deg, #065f46, #10b981, #059669);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #064e3b;
 }
 [data-theme="forest"] .btn-fun { background: linear-gradient(135deg, #065f46, #10b981, #34d399); box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4); }
 
@@ -405,8 +390,7 @@ body {
 [data-theme="night"] .card-fun::before { background: linear-gradient(135deg, #3b82f6, #6366f1, #8b5cf6); }
 [data-theme="night"] header { background: rgba(15, 23, 42, 0.95) !important; border-color: #334155 !important; }
 [data-theme="night"] .gradient-text {
-  background: linear-gradient(135deg, #60a5fa, #818cf8, #a78bfa);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #fbbf24;
 }
 [data-theme="night"] .btn-fun { background: linear-gradient(135deg, #3b82f6, #6366f1, #8b5cf6); box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5); }
 [data-theme="night"] .input-fun { background: rgba(30, 41, 59, 0.6); border-color: #475569; color: #e2e8f0; }
@@ -426,8 +410,7 @@ body {
 [data-theme="bubblegum"] .card-fun::before { background: linear-gradient(135deg, #ec4899, #f472b6, #fb923c); }
 [data-theme="bubblegum"] header { background: rgba(255,255,255,0.9) !important; border-color: #fda4af !important; }
 [data-theme="bubblegum"] .gradient-text {
-  background: linear-gradient(135deg, #ec4899, #f43f5e, #fb923c);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #881337;
 }
 [data-theme="bubblegum"] .btn-fun { background: linear-gradient(135deg, #ec4899, #f43f5e, #fb923c); box-shadow: 0 6px 25px rgba(236, 72, 153, 0.4); }
 
@@ -441,8 +424,7 @@ body {
 [data-theme="golden"] .card-fun::before { background: linear-gradient(135deg, #b45309, #d97706, #fbbf24); }
 [data-theme="golden"] header { background: rgba(255,255,255,0.9) !important; border-color: #fde68a !important; }
 [data-theme="golden"] .gradient-text {
-  background: linear-gradient(135deg, #b45309, #d97706, #f59e0b);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: #78350f;
 }
 [data-theme="golden"] .btn-fun { background: linear-gradient(135deg, #b45309, #d97706, #fbbf24); box-shadow: 0 6px 25px rgba(217, 119, 6, 0.4); }
 

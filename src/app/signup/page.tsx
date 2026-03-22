@@ -30,7 +30,7 @@ export default function SignupPage() {
         <div className="text-center">
           <p className="text-5xl mb-2 animate-pop-in">&#x1F389;</p>
           <h1 className="text-4xl font-extrabold gradient-text">Join the fun!</h1>
-          <p className="text-purple-400 font-medium mt-1">Create your account to get started</p>
+          <p className="text-[#fbda04] font-medium text-lg mt-1">Create your account to get started</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -61,15 +61,15 @@ export default function SignupPage() {
               value={characterName}
               onChange={(e) => setCharacterName(e.target.value)}
             />
-            <p className="text-xs text-pink-400 font-bold mt-1">Give them an awesome name!</p>
+            <p className="text-base text-[#0011ff] font-bold mt-1">Give them an awesome name!</p>
           </div>
           {error && <p className="text-red-500 text-sm font-bold">&#x274C; {error}</p>}
           <button type="submit" className="w-full btn-fun text-xl">
             Next &#x2192; &#x2728;
           </button>
-          <p className="text-sm text-center text-gray-500">
+          <p className="text-base text-center text-[#0011ff]">
             Already have an account?{" "}
-            <a href="/login" className="text-pink-500 font-extrabold hover:text-pink-700 transition-colors">
+            <a href="/login" className="text-[#0011ff] font-extrabold hover:text-blue-900 transition-colors">
               Log in! &#x1F511;
             </a>
           </p>

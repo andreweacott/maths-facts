@@ -28,7 +28,7 @@ export default function LoginPage() {
         <div className="text-center">
           <p className="text-5xl mb-2 animate-pop-in">&#x1F44B;</p>
           <h1 className="text-4xl font-extrabold gradient-text">Welcome back!</h1>
-          <p className="text-purple-400 font-medium mt-1">Log in to continue learning</p>
+          <p className="text-[#fbda04] font-medium text-lg mt-1">Log in to continue learning</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -54,9 +54,9 @@ export default function LoginPage() {
           <button type="submit" className="w-full btn-fun text-xl">
             Let&apos;s go! &#x1F680;
           </button>
-          <p className="text-sm text-center text-gray-500">
+          <p className="text-base text-center text-[#0011ff]">
             New here?{" "}
-            <a href="/signup" className="text-pink-500 font-extrabold hover:text-pink-700 transition-colors">
+            <a href="/signup" className="text-[#0011ff] font-extrabold hover:text-blue-900 transition-colors">
               Sign up! &#x2728;
             </a>
           </p>

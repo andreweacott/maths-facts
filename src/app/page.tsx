@@ -31,7 +31,7 @@ export default async function HomePage() {
             <h1 className="text-4xl font-extrabold gradient-text">
               Hi {session.user.username}! &#x1F44B;
             </h1>
-            <p className="text-purple-500 font-bold text-xl mt-1">
+            <p className="text-[#fbda04] font-bold text-xl mt-1">
               {session.user.characterName} is ready to help! &#x2728;
             </p>
           </div>
@@ -46,7 +46,7 @@ export default async function HomePage() {
       </a>
 
       <div className="animate-slide-up">
-        <h2 className="font-extrabold text-white text-xl mb-3 drop-shadow-lg">&#x1F4DA; Past topics</h2>
+        <h2 className="font-extrabold text-white text-xl mb-3" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25)' }}>&#x1F4DA; Past topics</h2>
         <TopicList topics={topics} />
       </div>
     </main>

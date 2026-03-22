@@ -103,7 +103,7 @@ export default function SettingsPage() {
         <div className="text-center">
           <p className="text-5xl mb-2">&#x2699;&#xFE0F;</p>
           <h1 className="text-4xl font-extrabold gradient-text">Settings</h1>
-          <p className="text-gray-400 text-sm mt-1">Make the app yours!</p>
+          <p className="text-[#fbda04] text-lg font-semibold mt-1">Make the app yours!</p>
         </div>
 
         {/* Theme */}
@@ -125,7 +125,7 @@ export default function SettingsPage() {
             {FONTS.map((f) => (
               <PickerButton key={f.id} selected={current("font", "comic-sans") === f.id} onClick={() => save({ font: f.id })}>
                 <p className="text-lg font-bold" style={{ fontFamily: f.preview }}>{f.name}</p>
-                <p className="text-sm text-gray-400" style={{ fontFamily: f.preview }}>Abc 123</p>
+                <p className="text-base text-[#0011ff]" style={{ fontFamily: f.preview }}>Abc 123</p>
               </PickerButton>
             ))}
           </div>
@@ -137,7 +137,7 @@ export default function SettingsPage() {
             {FONT_SIZES.map((s) => (
               <PickerButton key={s.id} selected={current("fontSize", "medium") === s.id} onClick={() => save({ fontSize: s.id })}>
                 <p className="font-extrabold" style={{ fontSize: s.size }}>Aa</p>
-                <p className="text-xs text-gray-400">{s.name}</p>
+                <p className="text-base text-[#0011ff]">{s.name}</p>
               </PickerButton>
             ))}
           </div>
