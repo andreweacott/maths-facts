@@ -20,27 +20,32 @@ export default function NewTopicPage() {
   }
 
   return (
-    <main className="max-w-2xl mx-auto mt-10 p-6">
-      <h1 className="text-2xl font-bold mb-2">This week's topic</h1>
-      <p className="text-gray-500 mb-6">
-        Type or paste what it says on your homework sheet.
-      </p>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <textarea
-          className="w-full border rounded-xl px-4 py-3 h-48 text-base resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400"
-          placeholder="e.g. Place value — include a hundreds, tens and ones chart and show how the same digit can have different values."
-          value={rawInput}
-          onChange={(e) => setRawInput(e.target.value)}
-          required
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-lg hover:bg-indigo-700 disabled:opacity-50 transition"
-        >
-          {loading ? "Getting ideas..." : "Go! →"}
-        </button>
-      </form>
+    <main className="max-w-2xl mx-auto mt-10 p-2">
+      <div className="card-fun animate-slide-up space-y-5">
+        <div className="text-center">
+          <p className="text-5xl mb-2 animate-pop-in">&#x1F4DD;</p>
+          <h1 className="text-4xl font-extrabold gradient-text">This week&apos;s topic</h1>
+          <p className="text-purple-400 font-bold mt-1">
+            Type or paste what it says on your homework sheet
+          </p>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <textarea
+            className="input-fun h-48 resize-none"
+            placeholder="e.g. Place value — include a hundreds, tens and ones chart and show how the same digit can have different values."
+            value={rawInput}
+            onChange={(e) => setRawInput(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full btn-fun text-2xl py-5"
+          >
+            {loading ? "&#x2728; Getting ideas... &#x2728;" : "&#x1F680; Go! &#x1F680;"}
+          </button>
+        </form>
+      </div>
     </main>
   );
 }

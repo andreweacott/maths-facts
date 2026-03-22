@@ -13,30 +13,40 @@ export default async function HomePage() {
   });
 
   return (
-    <main className="max-w-2xl mx-auto mt-10 p-6 space-y-6">
-      <div className="flex items-center gap-4">
-        {session.user.characterImagePath && (
-          <img
-            src={session.user.characterImagePath}
-            alt={session.user.characterName}
-            className="w-20 h-20 rounded-full object-cover border-4 border-indigo-200"
-          />
-        )}
-        <div>
-          <h1 className="text-2xl font-bold">Hi {session.user.username}!</h1>
-          <p className="text-gray-500">
-            {session.user.characterName} is ready to help.
-          </p>
+    <main className="max-w-2xl mx-auto mt-10 p-6 space-y-6 stagger-children">
+      <div className="card-fun animate-slide-up">
+        <div className="flex items-center gap-5">
+          {session.user.characterImagePath ? (
+            <img
+              src={session.user.characterImagePath}
+              alt={session.user.characterName}
+              className="w-28 h-28 rounded-full object-cover border-4 border-yellow-300 shadow-xl animate-float"
+            />
+          ) : (
+            <div className="w-28 h-28 rounded-full bg-gradient-to-br from-yellow-300 via-pink-400 to-purple-500 flex items-center justify-center text-5xl shadow-xl animate-float">
+              &#x1F9D9;
+            </div>
+          )}
+          <div>
+            <h1 className="text-4xl font-extrabold gradient-text">
+              Hi {session.user.username}! &#x1F44B;
+            </h1>
+            <p className="text-purple-500 font-bold text-xl mt-1">
+              {session.user.characterName} is ready to help! &#x2728;
+            </p>
+          </div>
         </div>
       </div>
+
       <a
         href="/topic/new"
-        className="block text-center bg-indigo-600 text-white py-3 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition"
+        className="block text-center btn-fun text-2xl py-5 animate-slide-up"
       >
-        Start this week&#39;s topic &rarr;
+        &#x1F680; Start this week&apos;s topic! &#x1F680;
       </a>
-      <div>
-        <h2 className="font-semibold text-gray-700 mb-3">Past topics</h2>
+
+      <div className="animate-slide-up">
+        <h2 className="font-extrabold text-white text-xl mb-3 drop-shadow-lg">&#x1F4DA; Past topics</h2>
         <TopicList topics={topics} />
       </div>
     </main>

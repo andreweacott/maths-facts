@@ -17,4 +17,11 @@ describe("parseMessageContent", () => {
     const result = parseMessageContent(raw);
     expect(result).toContainEqual(expect.objectContaining({ type: "imageQuery" }));
   });
+
+  it("strips truncated JSON at end of message", () => {
+    const raw = 'Some ideas:\n\n{"imageQuery": "colourful smoothie';
+    const result = parseMessageContent(raw);
+    expect(result).toEqual([{ type: "text", text: "Some ideas:" }]);
+    expect(result).not.toContainEqual(expect.objectContaining({ type: "imageQuery" }));
+  });
 });

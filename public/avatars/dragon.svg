@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="58" fill="#059669"/>
+  <!-- Head -->
+  <ellipse cx="60" cy="55" rx="30" ry="28" fill="#34d399"/>
+  <!-- Horns -->
+  <polygon points="35,32 28,10 40,28" fill="#fbbf24"/>
+  <polygon points="85,32 92,10 80,28" fill="#fbbf24"/>
+  <!-- Spikes -->
+  <polygon points="55,27 60,12 65,27" fill="#10b981"/>
+  <!-- Eyes -->
+  <ellipse cx="47" cy="48" rx="8" ry="9" fill="#fef9c3"/>
+  <ellipse cx="73" cy="48" rx="8" ry="9" fill="#fef9c3"/>
+  <ellipse cx="48" cy="49" rx="4" ry="5" fill="#1e1b4b"/>
+  <ellipse cx="74" cy="49" rx="4" ry="5" fill="#1e1b4b"/>
+  <ellipse cx="49" cy="47" rx="1.5" ry="2" fill="#fff"/>
+  <ellipse cx="75" cy="47" rx="1.5" ry="2" fill="#fff"/>
+  <!-- Nostrils -->
+  <circle cx="54" cy="62" r="2.5" fill="#059669"/>
+  <circle cx="66" cy="62" r="2.5" fill="#059669"/>
+  <!-- Smile -->
+  <path d="M45 68 Q60 80 75 68" stroke="#065f46" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Teeth -->
+  <polygon points="50,68 53,74 56,68" fill="#fff"/>
+  <polygon points="64,68 67,74 70,68" fill="#fff"/>
+  <!-- Body -->
+  <ellipse cx="60" cy="95" rx="28" ry="22" fill="#34d399"/>
+  <!-- Belly -->
+  <ellipse cx="60" cy="97" rx="18" ry="15" fill="#a7f3d0"/>
+</svg>

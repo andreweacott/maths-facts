@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="58" fill="#6366f1"/>
+  <!-- Head -->
+  <rect x="30" y="25" width="60" height="50" rx="10" fill="#a5b4fc"/>
+  <!-- Antenna -->
+  <line x1="60" y1="25" x2="60" y2="12" stroke="#818cf8" stroke-width="3"/>
+  <circle cx="60" cy="10" r="5" fill="#f472b6"/>
+  <!-- Eyes -->
+  <rect x="40" y="40" width="12" height="12" rx="2" fill="#1e1b4b"/>
+  <rect x="68" y="40" width="12" height="12" rx="2" fill="#1e1b4b"/>
+  <rect x="43" y="43" width="4" height="4" fill="#fff"/>
+  <rect x="71" y="43" width="4" height="4" fill="#fff"/>
+  <!-- Mouth -->
+  <rect x="42" y="58" width="36" height="6" rx="2" fill="#1e1b4b"/>
+  <rect x="48" y="58" width="4" height="6" fill="#6366f1"/>
+  <rect x="58" y="58" width="4" height="6" fill="#6366f1"/>
+  <rect x="68" y="58" width="4" height="6" fill="#6366f1"/>
+  <!-- Body -->
+  <rect x="35" y="78" width="50" height="30" rx="8" fill="#a5b4fc"/>
+  <circle cx="52" cy="90" r="5" fill="#f472b6"/>
+  <circle cx="68" cy="90" r="5" fill="#34d399"/>
+</svg>

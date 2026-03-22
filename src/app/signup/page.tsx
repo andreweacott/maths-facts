@@ -25,44 +25,56 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="max-w-md mx-auto mt-16 p-6 bg-white rounded-xl shadow">
-      <h1 className="text-2xl font-bold mb-6">Create your account</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">Username</label>
-          <input
-            className="w-full border rounded px-3 py-2"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    <main className="max-w-md mx-auto mt-16 p-2">
+      <div className="card-fun animate-slide-up space-y-6">
+        <div className="text-center">
+          <p className="text-5xl mb-2 animate-pop-in">&#x1F389;</p>
+          <h1 className="text-4xl font-extrabold gradient-text">Join the fun!</h1>
+          <p className="text-purple-400 font-medium mt-1">Create your account to get started</p>
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Password</label>
-          <input
-            type="password"
-            className="w-full border rounded px-3 py-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Character name</label>
-          <input
-            className="w-full border rounded px-3 py-2"
-            value={characterName}
-            onChange={(e) => setCharacterName(e.target.value)}
-          />
-        </div>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        <button type="submit" className="w-full bg-indigo-600 text-white py-2 rounded font-semibold">
-          Next →
-        </button>
-        <p className="text-sm text-center">
-          Already have an account? <a href="/login" className="text-indigo-600">Log in</a>
-        </p>
-      </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-extrabold text-purple-700 mb-1">Username</label>
+            <input
+              className="input-fun"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-extrabold text-purple-700 mb-1">Password</label>
+            <input
+              type="password"
+              className="input-fun"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-extrabold text-purple-700 mb-1">
+              &#x1F9D9; Name your maths character
+            </label>
+            <input
+              className="input-fun"
+              value={characterName}
+              onChange={(e) => setCharacterName(e.target.value)}
+            />
+            <p className="text-xs text-pink-400 font-bold mt-1">Give them an awesome name!</p>
+          </div>
+          {error && <p className="text-red-500 text-sm font-bold">&#x274C; {error}</p>}
+          <button type="submit" className="w-full btn-fun text-xl">
+            Next &#x2192; &#x2728;
+          </button>
+          <p className="text-sm text-center text-gray-500">
+            Already have an account?{" "}
+            <a href="/login" className="text-pink-500 font-extrabold hover:text-pink-700 transition-colors">
+              Log in! &#x1F511;
+            </a>
+          </p>
+        </form>
+      </div>
     </main>
   );
 }

@@ -49,7 +49,12 @@ export function parseMessageContent(raw: string): MessagePart[] {
   }
 
   if (lastIndex < raw.length) {
-    const remaining = raw.slice(lastIndex).trim();
+    let remaining = raw.slice(lastIndex).trim();
+    // Strip truncated JSON at the end (e.g. '{"imageQuery": "colourful smoothie')
+    const truncatedJson = remaining.match(/\{"[^}]*$/);
+    if (truncatedJson) {
+      remaining = remaining.slice(0, truncatedJson.index).trim();
+    }
     if (remaining) parts.push({ type: "text", text: remaining });
   }
 

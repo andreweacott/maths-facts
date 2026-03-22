@@ -5,9 +5,9 @@ export default async function Header() {
   const user = session.user;
 
   return (
-    <header className="flex items-center justify-between px-6 py-3 bg-white border-b shadow-sm">
-      <a href="/" className="text-xl font-bold text-indigo-600">
-        Maths Facts
+    <header className="flex items-center justify-between px-6 py-3 bg-white/85 backdrop-blur-md border-b-2 border-purple-200 shadow-lg shadow-purple-100/30">
+      <a href="/" className="text-2xl font-extrabold gradient-text tracking-tight">
+        &#x2728; Maths Facts &#x2728;
       </a>
       {user && (
         <div className="flex items-center gap-3">
@@ -15,13 +15,13 @@ export default async function Header() {
             <img
               src={user.profileImagePath}
               alt={user.username}
-              className="w-9 h-9 rounded-full object-cover"
+              className="w-10 h-10 rounded-full object-cover border-3 border-yellow-300 shadow-md bounce-hover"
             />
           )}
-          <span className="text-sm font-medium">{user.username}</span>
-          <a href="/settings" className="text-sm text-gray-500 hover:text-gray-700">Settings</a>
+          <span className="text-sm font-extrabold text-purple-700">{user.username}</span>
+          <a href="/settings" className="text-sm text-pink-400 hover:text-pink-600 font-bold transition-colors">&#x2699;&#xFE0F; Settings</a>
           <form action="/api/auth/logout" method="POST">
-            <button className="text-sm text-gray-500 hover:text-gray-700">
+            <button className="text-sm text-gray-400 hover:text-red-500 font-bold transition-colors">
               Log out
             </button>
           </form>

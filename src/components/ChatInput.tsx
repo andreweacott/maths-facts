@@ -14,10 +14,10 @@ export default function ChatInput({ onSend, disabled }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 p-3 bg-white/80 backdrop-blur border-t">
+    <form onSubmit={handleSubmit} className="flex gap-3 p-4 bg-white/90 backdrop-blur-md border-t-2 border-purple-100">
       <input
-        className="flex-1 rounded-full border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        placeholder="Ask a question..."
+        className="flex-1 rounded-full border-3 border-purple-200 px-5 py-3 text-base bg-white text-gray-900 focus:outline-none focus:border-pink-400 focus:shadow-[0_0_0_4px_rgba(236,72,153,0.2)] transition-all"
+        placeholder="Ask a question... &#x1F4AC;"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={disabled}
@@ -25,7 +25,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
       <button
         type="submit"
         disabled={disabled || !value.trim()}
-        className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center disabled:opacity-50"
+        className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 text-white text-lg flex items-center justify-center disabled:opacity-30 shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all"
       >
         &#x27A4;
       </button>

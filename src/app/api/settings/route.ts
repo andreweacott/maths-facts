@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
   const updates = await req.json();
   // Whitelist allowed settings keys
-  const allowed = ["chatBackground", "characterPanelBackground", "characterPosition"];
+  const allowed = ["chatBackground", "characterPanelBackground", "characterPosition", "theme", "font", "fontSize", "accentColor", "bubbleStyle", "myBubbleColor"];
   const filtered: Record<string, string> = {};
   for (const key of allowed) {
     if (key in updates && typeof updates[key] === "string") {

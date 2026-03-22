@@ -1,6 +1,18 @@
 "use client";
 
-const BACKGROUNDS = ["mountains.jpg", "beach.jpg", "forest.jpg", "meadow.jpg", "snow.jpg"];
+const BACKGROUNDS = [
+  { file: "mountains.jpg", name: "Mountains" },
+  { file: "beach.jpg", name: "Beach" },
+  { file: "forest.jpg", name: "Forest" },
+  { file: "meadow.jpg", name: "Meadow" },
+  { file: "snow.jpg", name: "Snow" },
+  { file: "autumn.jpg", name: "Autumn" },
+  { file: "sunset.jpg", name: "Sunset" },
+  { file: "tropical.jpg", name: "Tropical" },
+  { file: "stars.jpg", name: "Stars" },
+  { file: "desert.jpg", name: "Desert" },
+  { file: "canyon.jpg", name: "Canyon" },
+];
 
 type Props = {
   label: string;
@@ -10,23 +22,26 @@ type Props = {
 
 export default function BackgroundPicker({ label, current, onSelect }: Props) {
   return (
-    <div className="space-y-2">
-      <p className="font-medium text-sm">{label}</p>
-      <div className="flex gap-2 flex-wrap">
+    <div className="space-y-3">
+      <p className="font-extrabold text-purple-700 text-base">{label}</p>
+      <div className="grid grid-cols-4 gap-2">
         {BACKGROUNDS.map((bg) => (
           <button
-            key={bg}
+            key={bg.file}
             type="button"
-            onClick={() => onSelect(bg)}
-            className={`w-20 h-14 rounded-lg overflow-hidden border-4 transition ${
-              current === bg ? "border-indigo-600" : "border-transparent"
+            onClick={() => onSelect(bg.file)}
+            className={`rounded-xl overflow-hidden transition-all ${
+              current === bg.file || current === `/backgrounds/${bg.file}`
+                ? "ring-4 ring-yellow-400 scale-105 shadow-lg"
+                : "ring-2 ring-gray-200 hover:ring-purple-300"
             }`}
           >
             <img
-              src={`/backgrounds/${bg}`}
-              alt={bg}
-              className="w-full h-full object-cover"
+              src={`/backgrounds/${bg.file}`}
+              alt={bg.name}
+              className="w-full h-16 object-cover"
             />
+            <p className="text-xs font-bold py-1 bg-white">{bg.name}</p>
           </button>
         ))}
       </div>

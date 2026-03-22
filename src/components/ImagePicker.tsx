@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type Props = {
   label: string;
@@ -8,27 +8,49 @@ type Props = {
 };
 
 const PRESET_AVATARS = [
-  "/avatars/robot.png",
-  "/avatars/wizard.png",
-  "/avatars/astronaut.png",
-  "/avatars/dragon.png",
-  "/avatars/cat.png",
+  "/avatars/robot.svg",
+  "/avatars/wizard.svg",
+  "/avatars/astronaut.svg",
+  "/avatars/dragon.svg",
+  "/avatars/cat.svg",
 ];
 
 export default function ImagePicker({ label, field, onSelected }: Props) {
-  const [mode, setMode] = useState<"upload" | "library">("upload");
+  const [mode, setMode] = useState<"upload" | "library">("library");
   const [preview, setPreview] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const form = new FormData();
-    form.append("file", file);
-    form.append("field", field);
-    const res = await fetch("/api/upload", { method: "POST", body: form });
-    const { path } = await res.json();
-    setPreview(path);
-    onSelected(path);
+    setUploading(true);
+    setError(null);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      form.append("field", field);
+      const res = await fetch("/api/upload", { method: "POST", body: form });
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.error || "Upload failed");
+        return;
+      }
+      const { path } = await res.json();
+      setPreview(path);
+      onSelected(path);
+    } catch {
+      setError("Upload failed — please try again");
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  function handleUploadClick() {
+    setMode("upload");
+    // Small delay to ensure the input is rendered before clicking
+    setTimeout(() => fileInputRef.current?.click(), 0);
   }
 
   function handlePreset(path: string) {
@@ -42,10 +64,10 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
       <div className="flex gap-2 mb-2">
         <button
           type="button"
-          onClick={() => setMode("upload")}
+          onClick={handleUploadClick}
           className={`px-3 py-1 rounded text-sm ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-gray-100"}`}
         >
-          Upload photo
+          {uploading ? "Uploading..." : "Upload photo"}
         </button>
         <button
           type="button"
@@ -56,9 +78,15 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
         </button>
       </div>
 
-      {mode === "upload" && (
-        <input type="file" accept="image/*" onChange={handleUpload} className="text-sm" />
-      )}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleUpload}
+        className="hidden"
+      />
+
+      {error && <p className="text-red-500 text-sm">{error}</p>}
 
       {mode === "library" && (
         <div className="flex gap-2 flex-wrap">

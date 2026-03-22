@@ -73,17 +73,20 @@ export default function ChatPage() {
     ? { backgroundImage: `url(/backgrounds/${chatBg})`, backgroundSize: "cover", backgroundPosition: "center" }
     : { backgroundColor: "#f1f5f9" };
 
+  const reaction = loading ? "thinking" as const : messages.length > 0 ? "celebrating" as const : "waving" as const;
+
   const panel = (
     <CharacterPanel
       characterImagePath={user?.characterImagePath ?? null}
       characterName={user?.characterName ?? "Mathsie"}
       panelBackground={panelBg}
+      reaction={reaction}
     />
   );
 
   return (
     <div className="flex flex-col h-[calc(100vh-56px)]">
-      <div className="px-4 py-2 bg-white border-b text-sm font-semibold text-gray-700">
+      <div className="px-5 py-2.5 bg-white/90 backdrop-blur-sm border-b border-indigo-100 text-sm font-extrabold gradient-text">
         {topic?.title ?? "Loading..."}
       </div>
       <div className="flex flex-1 overflow-hidden">
@@ -101,9 +104,16 @@ export default function ChatPage() {
               />
             ))}
             {loading && (
-              <div className="flex gap-2">
-                <div className="w-8 h-8 rounded-full bg-indigo-200 flex-shrink-0" />
-                <div className="bg-white/90 rounded-2xl px-4 py-3 text-sm text-gray-400">Thinking...</div>
+              <div className="flex gap-2.5 items-start animate-message-in">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-300 to-purple-400 flex-shrink-0 animate-pulse shadow-sm" />
+                <div className="bg-white/95 border border-indigo-100 rounded-2xl rounded-tl-none px-4 py-3 text-sm text-purple-400 font-medium shadow-md">
+                  <span className="inline-flex gap-1">
+                    Thinking
+                    <span className="animate-bounce" style={{animationDelay: "0ms"}}>.</span>
+                    <span className="animate-bounce" style={{animationDelay: "150ms"}}>.</span>
+                    <span className="animate-bounce" style={{animationDelay: "300ms"}}>.</span>
+                  </span>
+                </div>
               </div>
             )}
             <div ref={bottomRef} />

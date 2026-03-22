@@ -23,36 +23,45 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="max-w-md mx-auto mt-16 p-6 bg-white rounded-xl shadow">
-      <h1 className="text-2xl font-bold mb-6">Log in</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">Username</label>
-          <input
-            className="w-full border rounded px-3 py-2"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    <main className="max-w-md mx-auto mt-16 p-2">
+      <div className="card-fun animate-slide-up space-y-6">
+        <div className="text-center">
+          <p className="text-5xl mb-2 animate-pop-in">&#x1F44B;</p>
+          <h1 className="text-4xl font-extrabold gradient-text">Welcome back!</h1>
+          <p className="text-purple-400 font-medium mt-1">Log in to continue learning</p>
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Password</label>
-          <input
-            type="password"
-            className="w-full border rounded px-3 py-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        <button type="submit" className="w-full bg-indigo-600 text-white py-2 rounded font-semibold">
-          Log in
-        </button>
-        <p className="text-sm text-center">
-          New user? <a href="/signup" className="text-indigo-600">Sign up</a>
-        </p>
-      </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-extrabold text-purple-700 mb-1">Username</label>
+            <input
+              className="input-fun"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-extrabold text-purple-700 mb-1">Password</label>
+            <input
+              type="password"
+              className="input-fun"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {error && <p className="text-red-500 text-sm font-bold">&#x274C; {error}</p>}
+          <button type="submit" className="w-full btn-fun text-xl">
+            Let&apos;s go! &#x1F680;
+          </button>
+          <p className="text-sm text-center text-gray-500">
+            New here?{" "}
+            <a href="/signup" className="text-pink-500 font-extrabold hover:text-pink-700 transition-colors">
+              Sign up! &#x2728;
+            </a>
+          </p>
+        </form>
+      </div>
     </main>
   );
 }
