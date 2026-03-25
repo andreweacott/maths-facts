@@ -34,6 +34,10 @@ export async function POST(
 
   const { userMessage } = await req.json();
 
+  if (userMessage && userMessage.length > 2000) {
+    return NextResponse.json({ error: "Input too long (max 2000 characters)" }, { status: 400 });
+  }
+
   if (userMessage) {
     await prisma.message.create({ data: { topicId, role: "user", content: userMessage } });
   }

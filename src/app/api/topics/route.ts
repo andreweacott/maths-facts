@@ -12,6 +12,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Topic description required" }, { status: 400 });
   }
 
+  if (rawInput.length > 2000) {
+    return NextResponse.json({ error: "Input too long (max 2000 characters)" }, { status: 400 });
+  }
+
   // Use first line as title, fall back to first 40 chars
   const title = rawInput.split("\n")[0].trim().slice(0, 80) || rawInput.slice(0, 40);
 

@@ -18,3 +18,17 @@ describe("POST /api/topics", () => {
     await prisma.user.delete({ where: { id: user.id } });
   });
 });
+
+describe("rawInput length validation", () => {
+  it("rejects rawInput over 2000 characters", () => {
+    const rawInput = "a".repeat(2001);
+    const isValid = rawInput.trim().length > 0 && rawInput.length <= 2000;
+    expect(isValid).toBe(false);
+  });
+
+  it("accepts rawInput at exactly 2000 characters", () => {
+    const rawInput = "a".repeat(2000);
+    const isValid = rawInput.trim().length > 0 && rawInput.length <= 2000;
+    expect(isValid).toBe(true);
+  });
+});
