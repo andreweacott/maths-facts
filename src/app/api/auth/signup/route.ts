@@ -6,6 +6,10 @@ import type { SessionUser } from "@/types";
 export async function POST(req: NextRequest) {
   const { username, password, characterName, inviteCode } = await req.json();
 
+  if (!process.env.INVITE_CODE) {
+    return NextResponse.json({ error: "Server misconfiguration: INVITE_CODE not set" }, { status: 500 });
+  }
+
   if (inviteCode !== process.env.INVITE_CODE) {
     return NextResponse.json({ error: "Invalid invite code" }, { status: 403 });
   }

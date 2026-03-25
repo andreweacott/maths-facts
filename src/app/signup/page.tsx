@@ -67,6 +67,7 @@ export default function SignupPage() {
           <div>
             <label className="block text-sm font-extrabold text-purple-700 mb-1">Invite code</label>
             <input
+              type="password"
               className="input-fun"
               value={inviteCode}
               onChange={(e) => setInviteCode(e.target.value)}
