@@ -32,5 +32,9 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "No valid fields" }, { status: 400 });
   }
   await prisma.user.update({ where: { id: session.user.id }, data });
+  // Update session so server components (e.g. Header) see the change
+  if (data.profileImagePath !== undefined) session.user.profileImagePath = data.profileImagePath;
+  if (data.characterImagePath !== undefined) session.user.characterImagePath = data.characterImagePath;
+  await session.save();
   return NextResponse.json({ ok: true });
 }

@@ -13,6 +13,13 @@ const PRESET_AVATARS = [
   "/avatars/astronaut.svg",
   "/avatars/dragon.svg",
   "/avatars/cat.svg",
+  "/avatars/unicorn.svg",
+  "/avatars/penguin.svg",
+  "/avatars/panda.svg",
+  "/avatars/fox.svg",
+  "/avatars/owl.svg",
+  "/avatars/dinosaur.svg",
+  "/avatars/bunny.svg",
 ];
 
 export default function ImagePicker({ label, field, onSelected }: Props) {
@@ -65,14 +72,14 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
         <button
           type="button"
           onClick={handleUploadClick}
-          className={`px-3 py-1 rounded text-sm ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-gray-100"}`}
+          className={`px-3 py-1 rounded text-sm font-bold ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
         >
           {uploading ? "Uploading..." : "Upload photo"}
         </button>
         <button
           type="button"
           onClick={() => setMode("library")}
-          className={`px-3 py-1 rounded text-sm ${mode === "library" ? "bg-indigo-600 text-white" : "bg-gray-100"}`}
+          className={`px-3 py-1 rounded text-sm font-bold ${mode === "library" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
         >
           Choose character
         </button>
@@ -89,7 +96,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
       {mode === "library" && (
-        <div className="flex gap-2 flex-wrap">
+        <div className="grid grid-cols-6 gap-2">
           {PRESET_AVATARS.map((src) => (
             <button key={src} type="button" onClick={() => handlePreset(src)}>
               <img
@@ -104,9 +111,6 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
         </div>
       )}
 
-      {preview && (
-        <img src={preview} alt="Preview" className="w-20 h-20 rounded-full object-cover mt-2" />
-      )}
     </div>
   );
 }

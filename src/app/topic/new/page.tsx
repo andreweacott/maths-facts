@@ -25,7 +25,7 @@ export default function NewTopicPage() {
         <div className="text-center">
           <p className="text-5xl mb-2 animate-pop-in">&#x1F4DD;</p>
           <h1 className="text-4xl font-extrabold gradient-text">This week&apos;s topic</h1>
-          <p className="text-purple-400 font-bold mt-1">
+          <p className="font-bold mt-1 text-gray-700">
             Type or paste what it says on your homework sheet
           </p>
         </div>

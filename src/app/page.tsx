@@ -31,7 +31,7 @@ export default async function HomePage() {
             <h1 className="text-4xl font-extrabold gradient-text">
               Hi {session.user.username}! &#x1F44B;
             </h1>
-            <p className="text-[#fbda04] font-bold text-xl mt-1">
+            <p className="font-bold text-xl mt-1" style={{ color: 'var(--accent-dark)' }}>
               {session.user.characterName} is ready to help! &#x2728;
             </p>
           </div>

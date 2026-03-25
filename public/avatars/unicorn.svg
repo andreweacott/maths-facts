@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="58" fill="#e879f9"/>
+  <!-- Horn -->
+  <polygon points="60,5 54,35 66,35" fill="#fbbf24"/>
+  <line x1="57" y1="15" x2="63" y2="20" stroke="#f59e0b" stroke-width="1.5"/>
+  <line x1="57" y1="22" x2="63" y2="27" stroke="#f59e0b" stroke-width="1.5"/>
+  <!-- Head -->
+  <ellipse cx="60" cy="55" rx="28" ry="26" fill="white"/>
+  <!-- Ears -->
+  <polygon points="36,38 28,18 46,32" fill="white"/>
+  <polygon points="84,38 92,18 74,32" fill="white"/>
+  <polygon points="38,36 32,22 45,33" fill="#fce7f3"/>
+  <polygon points="82,36 88,22 75,33" fill="#fce7f3"/>
+  <!-- Eyes -->
+  <circle cx="47" cy="52" r="5" fill="#7c3aed"/>
+  <circle cx="73" cy="52" r="5" fill="#7c3aed"/>
+  <circle cx="48.5" cy="51" r="2" fill="#fff"/>
+  <circle cx="74.5" cy="51" r="2" fill="#fff"/>
+  <!-- Blush -->
+  <ellipse cx="38" cy="62" rx="6" ry="3" fill="#fda4af" opacity="0.6"/>
+  <ellipse cx="82" cy="62" rx="6" ry="3" fill="#fda4af" opacity="0.6"/>
+  <!-- Smile -->
+  <path d="M50 65 Q60 74 70 65" stroke="#a855f7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Mane -->
+  <path d="M30 45 Q22 55 28 70 Q24 80 30 90" stroke="#c084fc" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M90 45 Q98 55 92 70 Q96 80 90 90" stroke="#f0abfc" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

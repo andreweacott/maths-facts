@@ -81,7 +81,7 @@ function UnsplashImage({ query }: { query: string }) {
   if (!url) return <div className="h-32 bg-gradient-to-r from-pink-100 via-purple-100 to-indigo-100 rounded-xl animate-pulse" />;
   return (
     <div className="my-2">
-      <p className="text-xl text-[#fbda04] font-extrabold mb-1">&#x1F3A8; Inspiration picture</p>
+      <p className="text-xl font-extrabold mb-1" style={{ color: 'var(--heading-color)' }}>&#x1F3A8; Inspiration picture</p>
       <img src={url} alt={query} className="rounded-xl w-full max-h-[400px] object-contain shadow-md border-2 border-purple-100" />
     </div>
   );

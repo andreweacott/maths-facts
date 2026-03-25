@@ -7,7 +7,7 @@ export default function TopicList({ topics }: { topics: Topic[] }) {
     return (
       <div className="card-fun text-center py-10">
         <p className="text-5xl mb-3 animate-float">📚</p>
-        <p className="text-purple-500 font-bold text-lg">No topics yet — start your first one!</p>
+        <p className="font-bold text-lg" style={{ color: 'var(--accent-dark)' }}>No topics yet — start your first one!</p>
       </div>
     );
   }
@@ -21,7 +21,7 @@ export default function TopicList({ topics }: { topics: Topic[] }) {
           >
             <span className="text-2xl">{TOPIC_EMOJIS[i % TOPIC_EMOJIS.length]}</span>
             <span className="font-bold text-indigo-700 text-base">{t.title}</span>
-            <span className="text-xs text-purple-300 font-bold ml-auto">
+            <span className="text-xs text-gray-500 font-bold ml-auto">
               {new Date(t.createdAt).toLocaleDateString()}
             </span>
           </a>

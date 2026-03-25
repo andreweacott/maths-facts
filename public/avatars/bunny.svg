@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="58" fill="#fda4af"/>
+  <!-- Ears -->
+  <ellipse cx="42" cy="22" rx="10" ry="24" fill="white"/>
+  <ellipse cx="78" cy="22" rx="10" ry="24" fill="white"/>
+  <ellipse cx="42" cy="22" rx="6" ry="18" fill="#fecdd3"/>
+  <ellipse cx="78" cy="22" rx="6" ry="18" fill="#fecdd3"/>
+  <!-- Head -->
+  <circle cx="60" cy="58" r="30" fill="white"/>
+  <!-- Eyes -->
+  <circle cx="48" cy="52" r="5" fill="#1a1a2e"/>
+  <circle cx="72" cy="52" r="5" fill="#1a1a2e"/>
+  <circle cx="49.5" cy="51" r="2" fill="white"/>
+  <circle cx="73.5" cy="51" r="2" fill="white"/>
+  <!-- Blush -->
+  <ellipse cx="38" cy="62" rx="6" ry="3.5" fill="#fda4af" opacity="0.5"/>
+  <ellipse cx="82" cy="62" rx="6" ry="3.5" fill="#fda4af" opacity="0.5"/>
+  <!-- Nose -->
+  <ellipse cx="60" cy="60" rx="4" ry="3" fill="#fb7185"/>
+  <!-- Mouth -->
+  <path d="M56 63 Q60 68 64 63" stroke="#9f1239" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Whiskers -->
+  <line x1="22" y1="58" x2="44" y2="62" stroke="#d1d5db" stroke-width="1.2"/>
+  <line x1="22" y1="66" x2="44" y2="65" stroke="#d1d5db" stroke-width="1.2"/>
+  <line x1="76" y1="62" x2="98" y2="58" stroke="#d1d5db" stroke-width="1.2"/>
+  <line x1="76" y1="65" x2="98" y2="66" stroke="#d1d5db" stroke-width="1.2"/>
+  <!-- Body -->
+  <ellipse cx="60" cy="98" rx="22" ry="18" fill="white"/>
+  <ellipse cx="60" cy="100" rx="14" ry="12" fill="#fecdd3"/>
+</svg>

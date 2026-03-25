@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="58" fill="#4ade80"/>
+  <!-- Spikes -->
+  <polygon points="42,18 48,32 36,32" fill="#15803d"/>
+  <polygon points="56,10 62,26 50,26" fill="#15803d"/>
+  <polygon points="70,14 76,30 64,30" fill="#15803d"/>
+  <!-- Head -->
+  <ellipse cx="60" cy="52" rx="30" ry="26" fill="#22c55e"/>
+  <!-- Snout -->
+  <ellipse cx="60" cy="62" rx="20" ry="14" fill="#4ade80"/>
+  <!-- Eyes -->
+  <circle cx="45" cy="46" r="7" fill="white"/>
+  <circle cx="75" cy="46" r="7" fill="white"/>
+  <circle cx="46" cy="47" r="4" fill="#1a1a2e"/>
+  <circle cx="76" cy="47" r="4" fill="#1a1a2e"/>
+  <circle cx="47" cy="46" r="1.5" fill="white"/>
+  <circle cx="77" cy="46" r="1.5" fill="white"/>
+  <!-- Nostrils -->
+  <circle cx="54" cy="58" r="2" fill="#15803d"/>
+  <circle cx="66" cy="58" r="2" fill="#15803d"/>
+  <!-- Mouth -->
+  <path d="M44 68 Q52 74 60 68 Q68 74 76 68" stroke="#15803d" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Teeth -->
+  <polygon points="50,68 52,72 54,68" fill="white"/>
+  <polygon points="66,68 68,72 70,68" fill="white"/>
+  <!-- Body -->
+  <ellipse cx="60" cy="96" rx="26" ry="20" fill="#22c55e"/>
+  <!-- Arms -->
+  <ellipse cx="34" cy="82" rx="6" ry="10" fill="#22c55e" transform="rotate(-20 34 82)"/>
+  <ellipse cx="86" cy="82" rx="6" ry="10" fill="#22c55e" transform="rotate(20 86 82)"/>
+</svg>

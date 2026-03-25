@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/auth";
+import SettingsButton from "./SettingsButton";
 
 export default async function Header() {
   const session = await getSession();
@@ -19,9 +20,9 @@ export default async function Header() {
             />
           )}
           <span className="text-sm font-extrabold text-purple-700">{user.username}</span>
-          <a href="/settings" className="text-sm text-pink-400 hover:text-pink-600 font-bold transition-colors">&#x2699;&#xFE0F; Settings</a>
+          <SettingsButton />
           <form action="/api/auth/logout" method="POST">
-            <button className="text-sm text-gray-400 hover:text-red-500 font-bold transition-colors">
+            <button className="text-sm text-gray-600 hover:text-red-500 font-bold transition-colors">
               Log out
             </button>
           </form>

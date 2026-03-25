@@ -106,7 +106,7 @@ export default function ChatPage() {
             {loading && (
               <div className="flex gap-2.5 items-start animate-message-in">
                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-300 to-purple-400 flex-shrink-0 animate-pulse shadow-sm" />
-                <div className="bg-white/95 border border-indigo-100 rounded-2xl rounded-tl-none px-4 py-3 text-sm text-purple-400 font-medium shadow-md">
+                <div className="bg-white/95 border border-indigo-100 rounded-2xl rounded-tl-none px-4 py-3 text-sm text-gray-600 font-medium shadow-md">
                   <span className="inline-flex gap-1">
                     Thinking
                     <span className="animate-bounce" style={{animationDelay: "0ms"}}>.</span>
