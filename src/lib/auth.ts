@@ -16,7 +16,12 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 export const sessionOptions = {
   password: process.env.SESSION_SECRET!,
   cookieName: "maths-facts-session",
-  cookieOptions: { secure: process.env.NODE_ENV === "production" },
+  cookieOptions: {
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+    sameSite: "strict" as const,
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+  },
 };
 
 export async function getSession() {
