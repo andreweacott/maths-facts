@@ -42,6 +42,11 @@ export async function POST(
     await prisma.message.create({ data: { topicId, role: "user", content: userMessage } });
   }
 
+  const CHARACTER_NAME_REGEX = /^[a-zA-Z0-9\s]{1,50}$/;
+  if (!CHARACTER_NAME_REGEX.test(user.characterName)) {
+    return NextResponse.json({ error: "Invalid character name" }, { status: 400 });
+  }
+
   const history = await prisma.message.findMany({
     where: { topicId },
     orderBy: { createdAt: "asc" },
