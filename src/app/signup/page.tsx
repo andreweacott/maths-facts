@@ -7,6 +7,7 @@ export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [characterName, setCharacterName] = useState("Mathsie");
+  const [inviteCode, setInviteCode] = useState("");
   const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
@@ -14,7 +15,7 @@ export default function SignupPage() {
     const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, characterName }),
+      body: JSON.stringify({ username, password, characterName, inviteCode }),
     });
     if (res.ok) {
       router.push("/setup");
@@ -62,6 +63,15 @@ export default function SignupPage() {
               onChange={(e) => setCharacterName(e.target.value)}
             />
             <p className="text-base font-bold mt-1" style={{ color: 'var(--accent-dark)' }}>Give them an awesome name!</p>
+          </div>
+          <div>
+            <label className="block text-sm font-extrabold text-purple-700 mb-1">Invite code</label>
+            <input
+              className="input-fun"
+              value={inviteCode}
+              onChange={(e) => setInviteCode(e.target.value)}
+              required
+            />
           </div>
           {error && <p className="text-red-500 text-sm font-bold">&#x274C; {error}</p>}
           <button type="submit" className="w-full btn-fun text-xl">

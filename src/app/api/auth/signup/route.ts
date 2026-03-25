@@ -4,7 +4,11 @@ import { hashPassword, getSession, parseSettings } from "@/lib/auth";
 import type { SessionUser } from "@/types";
 
 export async function POST(req: NextRequest) {
-  const { username, password, characterName } = await req.json();
+  const { username, password, characterName, inviteCode } = await req.json();
+
+  if (inviteCode !== process.env.INVITE_CODE) {
+    return NextResponse.json({ error: "Invalid invite code" }, { status: 403 });
+  }
 
   if (!username || !password) {
     return NextResponse.json({ error: "Username and password required" }, { status: 400 });
