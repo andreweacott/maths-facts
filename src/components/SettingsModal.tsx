@@ -7,14 +7,14 @@ import ImagePicker from "@/components/ImagePicker";
 import { useTheme } from "@/components/ThemeProvider";
 
 const THEMES = [
-  { id: "candy", name: "Candy", emoji: "🍬", preview: "linear-gradient(135deg, #a78bfa, #c084fc, #f0abfc)" },
-  { id: "ocean", name: "Ocean", emoji: "🌊", preview: "linear-gradient(135deg, #0077b6, #00b4d8, #90e0ef)" },
-  { id: "sunset", name: "Sunset", emoji: "🌅", preview: "linear-gradient(135deg, #f97316, #ef4444, #ec4899)" },
-  { id: "forest", name: "Forest", emoji: "🌲", preview: "linear-gradient(135deg, #065f46, #10b981, #6ee7b7)" },
-  { id: "bubblegum", name: "Bubblegum", emoji: "🫧", preview: "linear-gradient(135deg, #f472b6, #fb7185, #fda4af)" },
-  { id: "golden", name: "Golden", emoji: "✨", preview: "linear-gradient(135deg, #b45309, #d97706, #fbbf24)" },
-  { id: "arctic", name: "Arctic", emoji: "❄️", preview: "linear-gradient(135deg, #bae6fd, #e0f2fe, #f0f9ff)" },
-  { id: "space", name: "Space", emoji: "🚀", preview: "linear-gradient(135deg, #0f0c29, #302b63, #24243e)" },
+  { id: "candy", name: "Candy", character: "/avatars/unicorn.svg", preview: "linear-gradient(135deg, #a78bfa, #c084fc, #f0abfc)" },
+  { id: "ocean", name: "Ocean", character: "/avatars/penguin.svg", preview: "linear-gradient(135deg, #0077b6, #00b4d8, #90e0ef)" },
+  { id: "sunset", name: "Sunset", character: "/avatars/sun.svg", preview: "linear-gradient(135deg, #f97316, #ef4444, #ec4899)" },
+  { id: "forest", name: "Forest", character: "/avatars/owl.svg", preview: "linear-gradient(135deg, #065f46, #10b981, #6ee7b7)" },
+  { id: "bubblegum", name: "Bubblegum", character: "/avatars/bunny.svg", preview: "linear-gradient(135deg, #f472b6, #fb7185, #fda4af)" },
+  { id: "golden", name: "Golden", character: "/avatars/cat.svg", preview: "linear-gradient(135deg, #b45309, #d97706, #fbbf24)" },
+  { id: "arctic", name: "Arctic", character: "/avatars/polar-bear.svg", preview: "linear-gradient(135deg, #bae6fd, #e0f2fe, #f0f9ff)" },
+  { id: "space", name: "Space", character: "/avatars/astronaut.svg", preview: "linear-gradient(135deg, #0f0c29, #302b63, #24243e)" },
 ];
 
 const FONTS = [
@@ -148,9 +148,9 @@ export default function SettingsModal({ open, onClose }: Props) {
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl max-h-[85vh] mt-16 mx-4 overflow-y-auto rounded-2xl bg-white shadow-2xl animate-slide-up">
-        <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-          <h1 className="text-2xl font-extrabold gradient-text">Settings</h1>
+      <div className="settings-modal relative w-full max-w-2xl max-h-[85vh] mt-16 mx-4 overflow-y-auto rounded-2xl shadow-2xl animate-slide-up" style={{ background: '#ffffff', color: '#000000' }}>
+        <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-gray-100" style={{ background: 'rgba(255,255,255,0.95)' }}>
+          <h1 className="text-2xl font-extrabold text-black">Settings</h1>
           <button
             onClick={handleCancel}
             className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 text-lg font-bold transition-colors"
@@ -198,7 +198,7 @@ export default function SettingsModal({ open, onClose }: Props) {
               {THEMES.map((t) => (
                 <PickerButton key={t.id} selected={current("theme", "candy") === t.id} onClick={() => preview({ theme: t.id })}>
                   <div className="w-full h-10 rounded-lg mb-1" style={{ background: t.preview }} />
-                  <p className="text-lg leading-none">{t.emoji}</p>
+                  <img src={t.character} alt={t.name} className="w-10 h-10 mx-auto rounded-full" />
                   <p className="font-extrabold text-xs">{t.name}</p>
                 </PickerButton>
               ))}
@@ -295,7 +295,7 @@ export default function SettingsModal({ open, onClose }: Props) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-3">
-      <p className="font-extrabold text-base" style={{ color: 'var(--heading-color)' }}>{title}</p>
+      <p className="font-extrabold text-base text-black">{title}</p>
       {children}
     </div>
   );

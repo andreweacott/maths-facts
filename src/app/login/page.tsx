@@ -27,12 +27,12 @@ export default function LoginPage() {
       <div className="card-fun animate-slide-up space-y-6">
         <div className="text-center">
           <p className="text-5xl mb-2 animate-pop-in">&#x1F44B;</p>
-          <h1 className="text-4xl font-extrabold gradient-text">Welcome back!</h1>
-          <p className="font-medium text-lg mt-1" style={{ color: 'var(--accent-dark)' }}>Log in to continue learning</p>
+          <h1 className="text-4xl font-extrabold text-black">Welcome back!</h1>
+          <p className="font-medium text-lg mt-1 text-black">Log in to continue learning</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-extrabold text-purple-700 mb-1">Username</label>
+            <label className="block text-sm font-extrabold text-black mb-1">Username</label>
             <input
               className="input-fun"
               value={username}
@@ -41,7 +41,7 @@ export default function LoginPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-extrabold text-purple-700 mb-1">Password</label>
+            <label className="block text-sm font-extrabold text-black mb-1">Password</label>
             <input
               type="password"
               className="input-fun"
@@ -56,7 +56,7 @@ export default function LoginPage() {
           </button>
           <p className="text-base text-center text-gray-700">
             New here?{" "}
-            <a href="/signup" className="font-extrabold transition-colors" style={{ color: 'var(--accent-dark)' }}>
+            <a href="/signup" className="font-extrabold transition-colors text-black underline">
               Sign up! &#x2728;
             </a>
           </p>

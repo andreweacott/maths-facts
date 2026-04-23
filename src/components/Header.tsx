@@ -19,7 +19,7 @@ export default async function Header() {
               className="w-10 h-10 rounded-full object-cover border-3 border-yellow-300 shadow-md bounce-hover"
             />
           )}
-          <span className="text-sm font-extrabold text-purple-700">{user.username}</span>
+          <span className="text-sm font-extrabold text-black">{user.username}</span>
           <SettingsButton />
           <form action="/api/auth/logout" method="POST">
             <button className="text-sm text-gray-600 hover:text-red-500 font-bold transition-colors">

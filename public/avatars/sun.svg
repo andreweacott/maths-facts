@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="58" fill="#fde68a"/>
+  <!-- Rays -->
+  <line x1="60" y1="6" x2="60" y2="22" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="60" y1="98" x2="60" y2="114" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="6" y1="60" x2="22" y2="60" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="98" y1="60" x2="114" y2="60" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="20" y1="20" x2="32" y2="32" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="88" y1="88" x2="100" y2="100" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="100" y1="20" x2="88" y2="32" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <line x1="20" y1="100" x2="32" y2="88" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <!-- Face -->
+  <circle cx="60" cy="60" r="30" fill="#fbbf24"/>
+  <!-- Eyes -->
+  <circle cx="50" cy="54" r="4" fill="#92400e"/>
+  <circle cx="70" cy="54" r="4" fill="#92400e"/>
+  <circle cx="51.5" cy="53" r="1.5" fill="#fff"/>
+  <circle cx="71.5" cy="53" r="1.5" fill="#fff"/>
+  <!-- Blush -->
+  <ellipse cx="40" cy="64" rx="5" ry="3" fill="#f97316" opacity="0.4"/>
+  <ellipse cx="80" cy="64" rx="5" ry="3" fill="#f97316" opacity="0.4"/>
+  <!-- Smile -->
+  <path d="M48 66 Q60 78 72 66" stroke="#92400e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Sunglasses reflection -->
+  <circle cx="50" cy="54" r="7" fill="none" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="70" cy="54" r="7" fill="none" stroke="#d97706" stroke-width="1.5"/>
+</svg>

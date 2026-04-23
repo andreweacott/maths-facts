@@ -19,7 +19,7 @@ export default function DiagramRenderer({ diagram }: { diagram: Diagram }) {
           <tbody>
             <tr>
               {columns.map(([col, val]) => (
-                <td key={col} className="border border-purple-200 px-6 py-4 text-2xl font-extrabold text-purple-700 bg-white">{val}</td>
+                <td key={col} className="border border-purple-200 px-6 py-4 text-2xl font-extrabold text-black bg-white">{val}</td>
               ))}
             </tr>
           </tbody>

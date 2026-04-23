@@ -86,7 +86,7 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-56px)]">
-      <div className="px-5 py-2.5 bg-white/90 backdrop-blur-sm border-b border-indigo-100 text-sm font-extrabold gradient-text">
+      <div className="px-5 py-2.5 bg-white/90 backdrop-blur-sm border-b border-indigo-100 text-sm font-extrabold text-black">
         {topic?.title ?? "Loading..."}
       </div>
       <div className="flex flex-1 overflow-hidden">

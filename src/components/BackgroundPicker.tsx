@@ -23,7 +23,7 @@ type Props = {
 export default function BackgroundPicker({ label, current, onSelect }: Props) {
   return (
     <div className="space-y-3">
-      <p className="font-extrabold text-purple-700 text-base">{label}</p>
+      <p className="font-extrabold text-black text-base">{label}</p>
       <div className="grid grid-cols-4 gap-2">
         {BACKGROUNDS.map((bg) => (
           <button

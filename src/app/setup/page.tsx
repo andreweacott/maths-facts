@@ -22,7 +22,7 @@ export default function SetupPage() {
     <main className="max-w-md mx-auto mt-16 p-2">
       <div className="card-fun animate-slide-up space-y-6 stagger-children">
         <div className="text-center animate-slide-up">
-          <h1 className="text-3xl font-extrabold gradient-text">Add your pictures</h1>
+          <h1 className="text-3xl font-extrabold text-black">Add your pictures</h1>
           <p className="text-gray-600 text-base mt-1">A grown-up can help with this part.</p>
         </div>
         <div className="animate-slide-up">
