@@ -55,7 +55,7 @@ export async function POST(
   const assistantText = await chat(
     user.characterName,
     topic.rawInput,
-    history.map((m) => ({ role: m.role as "user" | "assistant", content: m.content }))
+    history.map((m: { role: string; content: string }) => ({ role: m.role as "user" | "assistant", content: m.content }))
   );
 
   await prisma.message.create({ data: { topicId, role: "assistant", content: assistantText } });
