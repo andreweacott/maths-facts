@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { upload } from "@vercel/blob/client";
 
 type Props = {
   label: string;
@@ -39,20 +40,17 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
     setUploading(true);
     setError(null);
     try {
-      const form = new FormData();
-      form.append("file", file);
-      form.append("field", field);
-      const res = await fetch("/api/upload", { method: "POST", body: form });
-      if (!res.ok) {
-        const data = await res.json();
-        setError(data.error || "Upload failed");
-        return;
-      }
-      const { path } = await res.json();
-      setPreview(path);
-      onSelected(path);
-    } catch {
-      setError("Upload failed — please try again");
+      const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+      const pathname = `${field}-${Date.now()}.${ext}`;
+      const blob = await upload(pathname, file, {
+        access: "public",
+        handleUploadUrl: "/api/upload",
+      });
+      setPreview(blob.url);
+      onSelected(blob.url);
+    } catch (err) {
+      const message = (err as Error)?.message || "Upload failed — please try again";
+      setError(message);
     } finally {
       setUploading(false);
     }
