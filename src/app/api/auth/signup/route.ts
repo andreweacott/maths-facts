@@ -10,7 +10,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Server misconfiguration: INVITE_CODE not set" }, { status: 500 });
   }
 
-  if (inviteCode !== process.env.INVITE_CODE) {
+  const provided = String(inviteCode ?? "").trim().toLowerCase();
+  const expected = process.env.INVITE_CODE.trim().toLowerCase();
+  if (provided !== expected) {
     return NextResponse.json({ error: "Invalid invite code" }, { status: 403 });
   }
 
