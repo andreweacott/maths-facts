@@ -65,7 +65,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
 
   function handleUploadClick() {
     setMode("upload");
-    setTimeout(() => fileInputRef.current?.click(), 0);
+    fileInputRef.current?.click();
   }
 
   async function handleCameraClick() {
