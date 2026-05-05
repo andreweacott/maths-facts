@@ -141,7 +141,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
           onClick={handleUploadClick}
           className={`px-3 py-1 rounded text-sm font-bold ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
         >
-          {uploading ? "Uploading..." : "Upload file"}
+          {uploading ? "Uploading..." : "🖼️ From photos"}
         </button>
         <button
           type="button"
