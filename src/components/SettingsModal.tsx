@@ -45,9 +45,11 @@ export default function SettingsModal({ open, onClose }: Props) {
   const router = useRouter();
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [profileImagePath, setProfileImagePath] = useState<string | null>(null);
+  const [characterImagePath, setCharacterImagePath] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const originalSettings = useRef<Record<string, string>>({});
   const originalProfileImage = useRef<string | null>(null);
+  const originalCharacterImage = useRef<string | null>(null);
   const { setTheme, setCustom } = useTheme();
 
   // Load settings when opened and snapshot the originals
@@ -61,6 +63,8 @@ export default function SettingsModal({ open, onClose }: Props) {
         originalSettings.current = { ...s };
         setProfileImagePath(u?.profileImagePath ?? null);
         originalProfileImage.current = u?.profileImagePath ?? null;
+        setCharacterImagePath(u?.characterImagePath ?? null);
+        originalCharacterImage.current = u?.characterImagePath ?? null;
       });
   }, [open]);
 
@@ -74,14 +78,21 @@ export default function SettingsModal({ open, onClose }: Props) {
     // Revert profile image if it was changed but not saved
     if (profileImagePath !== originalProfileImage.current) {
       setProfileImagePath(originalProfileImage.current);
-      // Revert on server too
       fetch("/api/auth/me", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ profileImagePath: originalProfileImage.current ?? "" }),
       });
     }
-  }, [setTheme, setCustom, profileImagePath]);
+    if (characterImagePath !== originalCharacterImage.current) {
+      setCharacterImagePath(originalCharacterImage.current);
+      fetch("/api/auth/me", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ characterImagePath: originalCharacterImage.current ?? "" }),
+      });
+    }
+  }, [setTheme, setCustom, profileImagePath, characterImagePath]);
 
   // Close without saving — revert
   const handleCancel = useCallback(() => {
@@ -130,6 +141,7 @@ export default function SettingsModal({ open, onClose }: Props) {
     // Update the snapshot so future cancels don't revert to stale state
     originalSettings.current = { ...draft };
     originalProfileImage.current = profileImagePath;
+    originalCharacterImage.current = characterImagePath;
     setSaving(false);
     onClose();
     router.refresh();
@@ -185,6 +197,37 @@ export default function SettingsModal({ open, onClose }: Props) {
                       method: "PATCH",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({ profileImagePath: path }),
+                    });
+                  }}
+                />
+              </div>
+            </div>
+          </Section>
+
+          {/* Character picture */}
+          <Section title="&#x1F9D9; Your maths character">
+            <div className="flex items-center gap-6">
+              {characterImagePath ? (
+                <img
+                  src={characterImagePath}
+                  alt="Character"
+                  className="w-20 h-20 rounded-full object-cover border-4 border-purple-300 shadow-lg"
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-300 via-pink-400 to-yellow-400 flex items-center justify-center text-3xl shadow-lg">
+                  &#x1F9D9;
+                </div>
+              )}
+              <div className="flex-1">
+                <ImagePicker
+                  label="Change your character"
+                  field="character"
+                  onSelected={async (path) => {
+                    setCharacterImagePath(path);
+                    await fetch("/api/auth/me", {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ characterImagePath: path }),
                     });
                   }}
                 />
