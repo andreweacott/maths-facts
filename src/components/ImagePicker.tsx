@@ -63,6 +63,32 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
     if (file) await uploadFile(file);
   }
 
+  async function handlePicturesClick(e: React.MouseEvent<HTMLLabelElement>) {
+    type PickerWindow = Window & {
+      showOpenFilePicker?: (opts: unknown) => Promise<Array<{ getFile: () => Promise<File> }>>;
+    };
+    const w = window as unknown as PickerWindow;
+    if (typeof w.showOpenFilePicker !== "function") return;
+    e.preventDefault();
+    setMode("upload");
+    try {
+      const [handle] = await w.showOpenFilePicker({
+        startIn: "pictures",
+        types: [
+          {
+            description: "Images",
+            accept: { "image/*": [".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif"] },
+          },
+        ],
+        multiple: false,
+      });
+      const file = await handle.getFile();
+      await uploadFile(file);
+    } catch {
+      // user cancelled or API failed — silent
+    }
+  }
+
   async function handleCameraClick() {
     setError(null);
     setMode("upload");
@@ -133,7 +159,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
         </button>
         <label
           htmlFor={inputId}
-          onClick={() => setMode("upload")}
+          onClick={handlePicturesClick}
           className={`cursor-pointer px-3 py-1 rounded text-sm font-bold ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
         >
           {uploading ? "Uploading..." : "🖼️ From photos"}
