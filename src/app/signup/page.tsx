@@ -11,18 +11,32 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [showInviteCode, setShowInviteCode] = useState(false);
 
+  const [submitting, setSubmitting] = useState(false);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, characterName, inviteCode }),
-    });
-    if (res.ok) {
-      router.push("/setup");
-    } else {
-      const data = await res.json();
-      setError(data.error);
+    setError("");
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, characterName, inviteCode }),
+      });
+      if (res.ok) {
+        router.push("/setup");
+        return;
+      }
+      let message = `Signup failed (${res.status})`;
+      try {
+        const data = await res.json();
+        if (data?.error) message = data.error;
+      } catch {}
+      setError(message);
+    } catch {
+      setError("Network error — please try again");
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -96,8 +110,8 @@ export default function SignupPage() {
             </div>
           </div>
           {error && <p className="text-red-500 text-sm font-bold">&#x274C; {error}</p>}
-          <button type="submit" className="w-full btn-fun text-xl">
-            Next &#x2192; &#x2728;
+          <button type="submit" disabled={submitting} className="w-full btn-fun text-xl disabled:opacity-50">
+            {submitting ? "Creating account..." : "Next → ✨"}
           </button>
           <p className="text-base text-center text-gray-700">
             Already have an account?{" "}
