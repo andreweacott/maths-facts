@@ -31,7 +31,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
   const [cameraOpen, setCameraOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputId = `imgpicker-${field}`;
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
@@ -61,11 +61,6 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (file) await uploadFile(file);
-  }
-
-  function handleUploadClick() {
-    setMode("upload");
-    fileInputRef.current?.click();
   }
 
   async function handleCameraClick() {
@@ -136,13 +131,13 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
         >
           📷 Take photo
         </button>
-        <button
-          type="button"
-          onClick={handleUploadClick}
-          className={`px-3 py-1 rounded text-sm font-bold ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
+        <label
+          htmlFor={inputId}
+          onClick={() => setMode("upload")}
+          className={`cursor-pointer px-3 py-1 rounded text-sm font-bold ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
         >
           {uploading ? "Uploading..." : "🖼️ From photos"}
-        </button>
+        </label>
         <button
           type="button"
           onClick={() => setMode("library")}
@@ -153,11 +148,11 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
       </div>
 
       <input
-        ref={fileInputRef}
+        id={inputId}
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        className="hidden"
+        className="sr-only"
       />
 
       {error && <p className="text-red-500 text-sm">{error}</p>}
