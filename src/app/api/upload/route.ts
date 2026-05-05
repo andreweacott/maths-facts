@@ -25,7 +25,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         const safeName = `${user.id}-${Date.now()}.${ext}`;
         return {
           allowedContentTypes: ALLOWED_CONTENT_TYPES,
-          maximumSizeInBytes: 10 * 1024 * 1024,
+          maximumSizeInBytes: 5 * 1024 * 1024,
           addRandomSuffix: false,
           tokenPayload: JSON.stringify({ userId: user.id, safeName }),
         };
