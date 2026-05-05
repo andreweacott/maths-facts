@@ -28,6 +28,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -56,8 +57,12 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
 
   function handleUploadClick() {
     setMode("upload");
-    // Small delay to ensure the input is rendered before clicking
     setTimeout(() => fileInputRef.current?.click(), 0);
+  }
+
+  function handleCameraClick() {
+    setMode("upload");
+    setTimeout(() => cameraInputRef.current?.click(), 0);
   }
 
   function handlePreset(path: string) {
@@ -71,10 +76,17 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
       <div className="flex gap-2 mb-2">
         <button
           type="button"
+          onClick={handleCameraClick}
+          className={`px-3 py-1 rounded text-sm font-bold bg-white ring-2 ring-gray-200 text-gray-700`}
+        >
+          📷 Take photo
+        </button>
+        <button
+          type="button"
           onClick={handleUploadClick}
           className={`px-3 py-1 rounded text-sm font-bold ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
         >
-          {uploading ? "Uploading..." : "Upload photo"}
+          {uploading ? "Uploading..." : "Upload file"}
         </button>
         <button
           type="button"
@@ -89,6 +101,14 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
         ref={fileInputRef}
         type="file"
         accept="image/*"
+        onChange={handleUpload}
+        className="hidden"
+      />
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/*"
+        capture="user"
         onChange={handleUpload}
         className="hidden"
       />
