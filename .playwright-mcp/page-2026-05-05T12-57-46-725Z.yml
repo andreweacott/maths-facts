@@ -1,0 +1,27 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "✨ Maths Facts ✨" [ref=e3] [cursor=pointer]:
+      - /url: /
+  - alert [ref=e32]
+  - main [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - heading "Add your pictures" [level=1] [ref=e37]
+        - paragraph [ref=e38]: A grown-up can help with this part.
+      - generic [ref=e40]:
+        - paragraph [ref=e41]: Your profile picture
+        - generic [ref=e42]:
+          - button "📷 Take photo" [ref=e43]
+          - button "Upload file" [ref=e44]
+          - button "Choose character" [ref=e45]
+        - paragraph [ref=e80]: Upload failed — please try again
+      - generic [ref=e60]:
+        - paragraph [ref=e61]: Your maths character
+        - generic [ref=e62]:
+          - button "📷 Take photo" [ref=e63]
+          - button "Upload file" [ref=e64]
+          - button "Choose character" [ref=e65]
+        - generic [ref=e84]:
+          - button "📸 Snap" [ref=e85]
+          - button "Cancel" [ref=e86]
+      - button "Let's go! →" [ref=e79]

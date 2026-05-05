@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type Props = {
   label: string;
@@ -28,6 +29,8 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [cameraOpen, setCameraOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -159,7 +162,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
 
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      {cameraOpen && (
+      {cameraOpen && mounted && createPortal(
         <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg p-4 max-w-lg w-full space-y-3">
             <video
@@ -187,7 +190,8 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {mode === "library" && (
