@@ -204,7 +204,7 @@ export default function HomeShell({
               So lovely to see you again.
             </div>
             <div className="hs-msg them">
-              Whenever you're ready, tap the green button below to start a new lesson — I&apos;ll come up with something fun for us 🌱
+              Whenever you&apos;re ready, tap the green button below to start a new lesson — I&apos;ll come up with something fun for us 🌱
             </div>
             <button
               className="hs-lessoncard"
