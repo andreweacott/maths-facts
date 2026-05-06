@@ -1025,5 +1025,5 @@ img.hs-meav { background: var(--warm); }
 
 .w-divider { height: 1px; background: var(--w-rule); margin: 22px 0; }
 
-/* Hide global header when home-shell is active */
-body:has(.home-shell) > * > header:first-child { display: none; }
+/* Hide global header when home-shell is active (hide only .w-topbar, never .hs-topbar) */
+body:has(.home-shell) > .w-topbar { display: none; }
