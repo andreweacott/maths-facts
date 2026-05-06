@@ -99,7 +99,7 @@ export default function HomeShell({
               <div className="hs-mename">
                 Welcome back, <em>{username}!</em>
               </div>
-              <div className="hs-mesub">ready when you are</div>
+              <div className="hs-mesub">{characterName} is ready when you are</div>
             </div>
           </div>
 
@@ -143,7 +143,7 @@ export default function HomeShell({
                     </div>
                     <div className="hs-preview">
                       <Tick />
-                      Saved · tap to continue
+                      Tap to continue
                     </div>
                   </div>
                   {confirmDelete === t.id ? (
