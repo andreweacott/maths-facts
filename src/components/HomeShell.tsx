@@ -10,6 +10,7 @@ type Props = {
   characterName: string;
   profileImagePath: string | null;
   characterImagePath: string | null;
+  year: string;
   topics: Topic[];
 };
 
@@ -39,6 +40,7 @@ export default function HomeShell({
   characterName,
   profileImagePath,
   characterImagePath,
+  year,
   topics,
 }: Props) {
   const router = useRouter();
@@ -71,7 +73,7 @@ export default function HomeShell({
         <div className="hs-crest">M·F</div>
         <div className="hs-title">
           Maths-Facts
-          <small>Welcome, {username}</small>
+          <small>{year} · {username}</small>
         </div>
         <div className="hs-actions">
           <button onClick={() => setSettingsOpen(true)} aria-label="Settings">

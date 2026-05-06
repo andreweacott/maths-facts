@@ -18,6 +18,7 @@ export default async function HomePage() {
       characterName={session.user.characterName}
       profileImagePath={session.user.profileImagePath ?? null}
       characterImagePath={session.user.characterImagePath ?? null}
+      year={session.user.settings?.year || "Year 4"}
       topics={topics.map((t) => ({
         id: t.id,
         title: t.title,

@@ -235,6 +235,22 @@ export default function SettingsModal({ open, onClose }: Props) {
             </div>
           </Section>
 
+          {/* Year */}
+          <Section title="&#x1F393; School year">
+            <div className="grid grid-cols-6 gap-2">
+              {(["Year 1", "Year 2", "Year 3", "Year 4", "Year 5", "Year 6"] as const).map((y) => (
+                <PickerButton
+                  key={y}
+                  selected={current("year", "Year 4") === y}
+                  onClick={() => preview({ year: y })}
+                >
+                  <p className="font-extrabold text-base">{y.replace("Year ", "")}</p>
+                  <p className="text-xs text-gray-600">Year</p>
+                </PickerButton>
+              ))}
+            </div>
+          </Section>
+
           {/* Theme */}
           <Section title="&#x1F3A8; App theme">
             <div className="grid grid-cols-4 gap-2">

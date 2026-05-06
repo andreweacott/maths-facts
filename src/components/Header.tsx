@@ -4,13 +4,14 @@ import SettingsButton from "./SettingsButton";
 export default async function Header() {
   const session = await getSession();
   const user = session.user;
+  const year = user?.settings?.year || "Year 4";
 
   return (
     <header className="w-topbar">
       <a href="/" className="w-crest" aria-label="Home">M·F</a>
       <a href="/" className="w-brand">
         Maths-Facts
-        <small>{user ? `Welcome, ${user.username}` : "Year 4 home learning"}</small>
+        <small>{user ? `${year} · ${user.username}` : "Home learning"}</small>
       </a>
       {user ? (
         <div className="w-topbar-right">
