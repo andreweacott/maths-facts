@@ -40,6 +40,7 @@ export default function BackgroundPicker({ label, current, onSelect }: Props) {
               src={`/backgrounds/${bg.file}`}
               alt={bg.name}
               className="w-full h-16 object-cover"
+              style={{ width: "100%", height: 64, objectFit: "cover", display: "block" }}
             />
             <p className="text-xs font-bold py-1 bg-white">{bg.name}</p>
           </button>

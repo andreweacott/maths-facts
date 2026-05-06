@@ -30,6 +30,13 @@ body {
   min-height: 100vh;
 }
 
+/* Safety: prevent any unconstrained image from blowing up */
+img { max-width: 100%; height: auto; }
+img.hs-meav, img.w-meav,
+.hs-row img, .hs-threadhead img,
+.w-topbar-right img,
+.markdown-content img { height: revert; }
+
 @keyframes bg-party {
   0% { background-position: 0% 50%; }
   25% { background-position: 50% 0%; }
