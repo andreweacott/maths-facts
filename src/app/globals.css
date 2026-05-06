@@ -595,7 +595,7 @@ body {
   --hs-paper: #fbf4e6;
   --thread-bg: #f4ecde;
   --hs-ink: #2a2330;
-  --hs-muted: #6e6577;
+  --hs-muted: #5a5161;
   --hs-rule: #ead9bf;
   --tick: #4fc3f7;
   position: fixed;
@@ -635,7 +635,7 @@ body {
   box-shadow: 0 2px 6px rgba(255,138,91,0.4);
 }
 .hs-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 19px; line-height: 1; letter-spacing: -0.01em; }
-.hs-title small { display: block; font-size: 11px; opacity: 0.65; letter-spacing: 0.14em; text-transform: uppercase; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; margin-top: 3px; }
+.hs-title small { display: block; font-size: 11px; color: var(--coral-2); letter-spacing: 0.14em; text-transform: uppercase; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; margin-top: 3px; }
 .hs-actions { display: flex; gap: 18px; align-items: center; }
 .hs-actions button, .hs-actions a {
   background: none; border: none; padding: 0; cursor: pointer;
@@ -871,7 +871,7 @@ img.hs-meav { background: var(--warm); }
   --w-plum-2: #382b48;
   --w-paper: #fbf4e6;
   --w-ink: #2a2330;
-  --w-muted: #6e6577;
+  --w-muted: #5a5161;
   --w-rule: #ead9bf;
 }
 
@@ -906,7 +906,7 @@ img.hs-meav { background: var(--warm); }
   font-weight: 600; font-size: 19px; line-height: 1; letter-spacing: -0.01em;
   color: var(--w-plum); text-decoration: none;
 }
-.w-brand small { display: block; font-size: 11px; opacity: 0.65; letter-spacing: 0.14em; text-transform: uppercase; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; margin-top: 3px; }
+.w-brand small { display: block; font-size: 11px; color: var(--w-coral-2); letter-spacing: 0.14em; text-transform: uppercase; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; margin-top: 3px; }
 
 .w-topbar-right { display: flex; gap: 14px; align-items: center; font-size: 12.5px; font-weight: 600; }
 .w-topbar-right .username { color: var(--w-plum); display: flex; align-items: center; gap: 8px; }
