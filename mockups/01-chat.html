@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Chat-style · maths-facts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-700: #1f7a5a;
+    --green-600: #2a9d76;
+    --green-500: #34c08c;
+    --bubble-me: #d8f5dd;     /* outgoing message tint */
+    --bubble-them: #ffffff;
+    --paper: #efe9df;          /* doodled chat bg base */
+    --ink: #111b21;
+    --muted: #54656f;
+    --rule: #e9edef;
+    --tick: #4fc3f7;
+    --accent: #ff9f1c;
+  }
+  *,*::before,*::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #d9d3c8;
+    color: var(--ink);
+    height: 100vh;
+    overflow: hidden;
+    font-size: 14.5px;
+    line-height: 1.4;
+  }
+
+  .app {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    height: 100vh;
+    max-width: 1480px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 0 40px rgba(0,0,0,0.12);
+  }
+  @media (max-width: 820px) { .app { grid-template-columns: 1fr; } .app .thread { display: none; } }
+
+  /* SIDEBAR */
+  aside {
+    border-right: 1px solid var(--rule);
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    background: white;
+    min-width: 0;
+  }
+  .side-head {
+    background: white;
+    padding: 14px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+  }
+  .me { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ffd166, #ef476f); display: grid; place-items: center; color: white; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+  .me .name { font-weight: 700; font-size: 15px; }
+  .me .sub { font-size: 11.5px; color: var(--muted); }
+  .icons { display: flex; gap: 14px; color: var(--muted); }
+  .icons svg { width: 20px; height: 20px; cursor: pointer; }
+  .icons svg:hover { color: var(--ink); }
+
+  .search {
+    padding: 8px 12px;
+    background: white;
+    border-bottom: 1px solid var(--rule);
+  }
+  .search-box {
+    display: flex; align-items: center; gap: 10px;
+    background: #f0f2f5;
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .search-box svg { width: 16px; height: 16px; }
+
+  .topics-list { overflow-y: auto; }
+  .topic-row {
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.12s ease;
+  }
+  .topic-row:hover { background: #f5f6f6; }
+  .topic-row.active { background: #ebf5f0; }
+  .topic-row .av {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: grid; place-items: center;
+    color: white; font-weight: 700; font-size: 18px;
+    flex-shrink: 0;
+  }
+  .av-mathsie { background: linear-gradient(135deg, var(--green-500), var(--green-700)); }
+  .av-time    { background: linear-gradient(135deg, #ffd166, #ef9b1a); }
+  .av-frac    { background: linear-gradient(135deg, #ef476f, #b6336c); }
+  .av-twos    { background: linear-gradient(135deg, #6c8aff, #3a4fb8); }
+  .av-shapes  { background: linear-gradient(135deg, #b388ff, #6a3eb8); }
+  .topic-row .info { min-width: 0; }
+  .topic-row .top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .topic-row .nm { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .topic-row .when { font-size: 11.5px; color: var(--muted); flex-shrink: 0; }
+  .topic-row.unread .when { color: var(--green-700); font-weight: 600; }
+  .topic-row .preview {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--muted); font-size: 13px; margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ticks svg { width: 14px; height: 14px; color: var(--tick); flex-shrink: 0; }
+  .pill {
+    background: var(--green-600); color: white;
+    border-radius: 999px; padding: 1px 8px;
+    font-size: 11.5px; font-weight: 700; flex-shrink: 0;
+  }
+  .pinned { color: var(--muted); font-size: 11px; flex-shrink: 0; }
+
+  /* THREAD */
+  .thread {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: var(--paper);
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220' fill='none' stroke='%2300000010' stroke-width='1'><circle cx='40' cy='40' r='10'/><path d='M70 30 l8 -10 l8 10 l-8 10 z'/><path d='M120 60 q10 -8 20 0 q-10 8 -20 0'/><circle cx='180' cy='40' r='6'/><path d='M40 110 l12 0 l-6 -10 z'/><circle cx='90' cy='130' r='8'/><path d='M150 120 l-8 8 l8 8 l8 -8 z'/><path d='M30 180 q10 -10 20 0'/><circle cx='110' cy='190' r='5'/><path d='M170 180 l10 0 l-5 8 z'/></svg>");
+    background-size: 220px 220px;
+    min-width: 0;
+  }
+
+  .thread-head {
+    background: #f0f2f5;
+    padding: 10px 22px;
+    display: flex; align-items: center; gap: 14px; justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+  }
+  .thread-head .who { display: flex; align-items: center; gap: 14px; }
+  .thread-head .av { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--green-500), var(--green-700)); display: grid; place-items: center; color: white; font-weight: 700; font-size: 16px; }
+  .thread-head h2 { font-size: 16px; margin: 0; font-weight: 700; }
+  .thread-head .status { font-size: 12px; color: var(--green-700); font-weight: 600; display: flex; align-items: center; gap: 5px; }
+  .thread-head .status::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--green-500); display: inline-block; }
+  .thread-head .actions { display: flex; gap: 18px; color: var(--muted); }
+  .thread-head .actions svg { width: 20px; height: 20px; cursor: pointer; }
+
+  .messages { padding: 28px 16% 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 1100px) { .messages { padding: 24px 8%; } }
+
+  .day-stamp { align-self: center; background: white; padding: 6px 14px; border-radius: 999px; font-size: 11.5px; color: var(--muted); margin: 12px 0; box-shadow: 0 1px 2px rgba(0,0,0,0.06); font-weight: 600; }
+
+  .msg {
+    max-width: 78%;
+    padding: 8px 11px 8px 12px;
+    border-radius: 14px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.08);
+    font-size: 14.5px;
+    line-height: 1.42;
+    position: relative;
+  }
+  .msg.them { background: var(--bubble-them); align-self: flex-start; border-top-left-radius: 4px; }
+  .msg.me   { background: var(--bubble-me);   align-self: flex-end;   border-top-right-radius: 4px; }
+  .msg .meta { font-size: 10.5px; color: var(--muted); margin-top: 3px; display: flex; gap: 4px; align-items: center; justify-content: flex-end; }
+  .msg .meta svg { width: 14px; height: 14px; color: var(--tick); }
+
+  .lesson-card {
+    align-self: flex-start;
+    background: white;
+    border-radius: 14px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    max-width: 78%;
+    border-top-left-radius: 4px;
+  }
+  .lesson-card .banner {
+    background: linear-gradient(135deg, var(--green-600), var(--green-700));
+    color: white;
+    padding: 18px 18px 16px;
+  }
+  .lesson-card .banner .kicker {
+    text-transform: uppercase; letter-spacing: 0.16em; font-size: 10.5px; font-weight: 700;
+    opacity: 0.85; margin-bottom: 8px;
+  }
+  .lesson-card .banner h3 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.015em; line-height: 1.05; }
+  .lesson-card .body { padding: 16px 18px 18px; }
+  .lesson-card .body p { margin: 0 0 14px; color: var(--ink); font-size: 14px; line-height: 1.5; }
+  .lesson-card .start {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px;
+    background: var(--green-600); color: white; text-decoration: none;
+    border-radius: 999px; font-weight: 700; font-size: 14.5px;
+    transition: background 0.15s ease;
+  }
+  .lesson-card .start:hover { background: var(--green-700); }
+  .lesson-card .start svg { width: 16px; height: 16px; }
+
+  .compose {
+    padding: 12px 22px;
+    background: #f0f2f5;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    align-items: center;
+  }
+  .compose .ic { width: 26px; height: 26px; color: var(--muted); cursor: pointer; }
+  .compose input {
+    border: none; background: white; border-radius: 999px;
+    padding: 11px 18px; font-family: inherit; font-size: 14px; outline: none;
+    box-shadow: inset 0 0 0 1px var(--rule);
+  }
+  .compose .send {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--green-600); display: grid; place-items: center; color: white; cursor: pointer;
+  }
+  .compose .send svg { width: 18px; height: 18px; }
+
+  .back {
+    position: fixed; top: 14px; right: 14px; z-index: 50;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; padding: 6px 10px;
+    background: white; border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  .back:hover { color: var(--green-700); }
+</style>
+</head>
+<body>
+  <a class="back" href="index.html">← back</a>
+  <div class="app">
+
+    <aside>
+      <div class="side-head">
+        <div class="me">
+          <div class="avatar">F</div>
+          <div>
+            <div class="name">Freya</div>
+            <div class="sub">Year 4 · online</div>
+          </div>
+        </div>
+        <div class="icons" title="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01A1.65 1.65 0 0 0 10 3.09V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+      </div>
+
+      <div class="search">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          Search topics
+        </div>
+      </div>
+
+      <div class="topics-list">
+        <a class="topic-row unread active" href="#">
+          <div class="av av-mathsie">M</div>
+          <div class="info">
+            <div class="top"><span class="nm">Mathsie</span><span class="when">Now</span></div>
+            <div class="preview">Hi Freya! Ready for sevens? 🎯</div>
+          </div>
+          <span class="pill">1</span>
+        </a>
+        <a class="topic-row" href="#">
+          <div class="av av-time">T</div>
+          <div class="info">
+            <div class="top"><span class="nm">Telling the time</span><span class="when">Tue</span></div>
+            <div class="preview"><span class="ticks"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg></span>You: Half past three!</div>
+          </div>
+        </a>
+        <a class="topic-row" href="#">
+          <div class="av av-frac">½</div>
+          <div class="info">
+            <div class="top"><span class="nm">Halves &amp; quarters</span><span class="when">Mon</span></div>
+            <div class="preview"><span class="ticks"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg></span>Mathsie: Lovely work, well done!</div>
+          </div>
+        </a>
+        <a class="topic-row" href="#">
+          <div class="av av-shapes">⬡</div>
+          <div class="info">
+            <div class="top"><span class="nm">Shapes &amp; sides</span><span class="when">Last week</span></div>
+            <div class="preview"><span class="ticks"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg></span>Mathsie: A hexagon has 6 sides 👍</div>
+          </div>
+        </a>
+        <a class="topic-row" href="#">
+          <div class="av av-twos">2×</div>
+          <div class="info">
+            <div class="top"><span class="nm">The two-times table</span><span class="when">29/04</span></div>
+            <div class="preview"><span class="ticks"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg></span>You: 2, 4, 6, 8 — easy!</div>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <section class="thread">
+      <header class="thread-head">
+        <div class="who">
+          <div class="av">M</div>
+          <div>
+            <h2>Mathsie</h2>
+            <div class="status">Online · ready when you are</div>
+          </div>
+        </div>
+        <div class="actions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="6" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="18" r="1.5" fill="currentColor"/></svg>
+        </div>
+      </header>
+
+      <div class="messages">
+        <div class="day-stamp">TODAY · TUESDAY</div>
+
+        <div class="msg them">
+          Good morning, Freya! 👋<br/>How are the pencils today?
+          <div class="meta">9:02</div>
+        </div>
+
+        <div class="msg me">
+          sharp ✏️
+          <div class="meta">9:03 <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg></div>
+        </div>
+
+        <div class="msg them">
+          Lovely. I have a new lesson ready for you 👇
+          <div class="meta">9:03</div>
+        </div>
+
+        <div class="lesson-card">
+          <div class="banner">
+            <div class="kicker">▶ This week's lesson</div>
+            <h3>The seven<br/>times table</h3>
+          </div>
+          <div class="body">
+            <p>A short, careful look at sevens — what to memorise, what to work out, and a tiny puzzle at the end. About 12 minutes.</p>
+            <a class="start" href="#">
+              Start lesson
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="msg them">
+          When you're ready, tap the green button above. I'll be right here. 🌱
+          <div class="meta">9:04</div>
+        </div>
+      </div>
+
+      <footer class="compose">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+        <input placeholder="Type a message…" />
+        <div class="send" title="send">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 11 18-8-8 18-2-7-8-3z"/></svg>
+        </div>
+      </footer>
+    </section>
+  </div>
+</body>
+</html>

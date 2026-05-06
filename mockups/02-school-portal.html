@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>School portal · maths-facts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #103a5c;
+    --navy-2: #0c2c47;
+    --gold: #f7b32b;
+    --green: #2a9d76;
+    --green-700: #1f7a5a;
+    --bubble-them: #ffffff;
+    --bubble-me: #d8f5dd;
+    --paper: #f6f3ec;
+    --ink: #1a1f2b;
+    --muted: #5d6a7b;
+    --rule: #dcd6c8;
+    --tick: #4fc3f7;
+  }
+  *,*::before,*::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.55;
+    font-size: 15px;
+  }
+
+  /* TOP RIBBON */
+  .ribbon {
+    background: var(--navy);
+    color: white;
+    font-size: 12px;
+    padding: 8px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    letter-spacing: 0.02em;
+  }
+  .ribbon .links a { color: rgba(255,255,255,0.85); margin-left: 22px; text-decoration: none; }
+  .ribbon .links a:hover { color: var(--gold); }
+
+  /* MASTHEAD */
+  .masthead {
+    background: white;
+    border-bottom: 4px solid var(--gold);
+    padding: 18px 28px 18px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 24px;
+  }
+  .crest {
+    width: 60px; height: 60px;
+    background: var(--navy);
+    border: 3px solid var(--gold);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    color: var(--gold);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.02em;
+  }
+  .school-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 26px; line-height: 1.1; letter-spacing: -0.015em; color: var(--navy); }
+  .school-name small { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .topnav { display: flex; gap: 28px; font-weight: 600; font-size: 13.5px; }
+  .topnav a { color: var(--ink); text-decoration: none; padding: 8px 0; border-bottom: 2px solid transparent; }
+  .topnav a.active { border-color: var(--gold); color: var(--navy); }
+  .topnav a:hover { color: var(--navy); }
+
+  /* PAGE HEADER */
+  .pageHead {
+    background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: white;
+    padding: 36px 28px;
+    position: relative; overflow: hidden;
+  }
+  .pageHead::after {
+    content: ''; position: absolute; right: -80px; bottom: -80px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle, var(--gold), transparent 70%);
+    opacity: 0.18;
+  }
+  .crumb { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.7; margin-bottom: 10px; }
+  .pageHead h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(34px, 4vw, 48px); margin: 0; letter-spacing: -0.02em; line-height: 1.05; max-width: 22ch; }
+  .pageHead h1 em { font-style: italic; color: var(--gold); }
+  .pageHead .lede { margin-top: 12px; opacity: 0.85; max-width: 60ch; font-size: 16px; }
+
+  /* LAYOUT */
+  main {
+    max-width: 1180px;
+    margin: -28px auto 0;
+    padding: 0 28px 64px;
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 28px;
+  }
+  @media (max-width: 920px) { main { grid-template-columns: 1fr; } }
+
+  .card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(16,58,92,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-head {
+    padding: 18px 22px 12px;
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-head h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--navy);
+  }
+  .card-head .meta { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+  .card-head .live {
+    color: var(--green-700); font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    display: inline-flex; gap: 6px; align-items: center;
+  }
+  .card-head .live::before { content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 0 4px rgba(42,157,118,0.18); }
+
+  /* THIS WEEK CARD */
+  .week-banner {
+    padding: 24px 26px 22px;
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 22px;
+    align-items: center;
+    background: linear-gradient(180deg, #fff8e6 0%, #ffffff 100%);
+    border-bottom: 1px solid var(--rule);
+  }
+  .week-portrait {
+    width: 86px; height: 86px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--green-700));
+    display: grid; place-items: center;
+    color: white;
+    box-shadow: 0 4px 14px rgba(42,157,118,0.35);
+    position: relative;
+  }
+  .week-portrait svg { width: 56px; height: 56px; }
+  .week-portrait .badge {
+    position: absolute; bottom: 2px; right: 2px;
+    background: var(--gold); color: var(--navy);
+    border-radius: 50%; width: 22px; height: 22px;
+    border: 3px solid white;
+    font-size: 11px; font-weight: 800;
+    display: grid; place-items: center;
+  }
+  .week-banner h3 { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; letter-spacing: -0.015em; margin: 0; color: var(--navy); line-height: 1.1; }
+  .week-banner h3 em { font-style: italic; color: var(--green-700); }
+  .week-banner p { margin: 4px 0 0; color: var(--muted); font-size: 13.5px; }
+
+  .chat-bubbles {
+    padding: 18px 22px 6px;
+    display: flex; flex-direction: column; gap: 6px;
+    flex: 1;
+  }
+  .day-stamp { align-self: center; background: var(--paper); padding: 4px 12px; border-radius: 999px; font-size: 11px; color: var(--muted); margin: 6px 0; font-weight: 600; letter-spacing: 0.04em; }
+  .bub {
+    max-width: 86%;
+    padding: 9px 13px;
+    border-radius: 14px;
+    font-size: 14.5px;
+    line-height: 1.45;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    position: relative;
+  }
+  .bub.them { background: var(--bubble-them); align-self: flex-start; border-top-left-radius: 4px; border: 1px solid var(--rule); }
+  .bub.me   { background: var(--bubble-me);   align-self: flex-end;   border-top-right-radius: 4px; }
+  .bub .when { font-size: 10.5px; color: var(--muted); display: flex; gap: 4px; align-items: center; justify-content: flex-end; margin-top: 2px; }
+  .bub .when svg { width: 13px; height: 13px; color: var(--tick); }
+
+  .start-row { padding: 12px 22px 22px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; border-top: 1px dashed var(--rule); }
+  .start-row a.start {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--green);
+    color: white; text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 999px;
+    font-weight: 700; font-size: 15px;
+    box-shadow: 0 4px 12px rgba(42,157,118,0.35);
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .start-row a.start:hover { background: var(--green-700); transform: translateY(-1px); }
+  .start-row a.start svg { width: 18px; height: 18px; }
+  .start-row .ghost {
+    color: var(--navy); font-weight: 600; text-decoration: none;
+    font-size: 13.5px; padding: 10px 4px;
+    border-bottom: 1.5px solid transparent;
+  }
+  .start-row .ghost:hover { border-color: var(--navy); }
+
+  /* RIGHT: TIMELINE OF PAST CONVERSATIONS */
+  .past-list { padding: 0 0 8px; flex: 1; overflow-y: auto; }
+  .past-item {
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    gap: 14px; align-items: center;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none; color: inherit;
+    transition: background 0.12s ease;
+  }
+  .past-item:last-child { border-bottom: none; }
+  .past-item:hover { background: #f7f4eb; }
+  .past-item .av {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: grid; place-items: center;
+    color: white; font-weight: 700; font-size: 18px;
+    flex-shrink: 0;
+  }
+  .av-time   { background: linear-gradient(135deg, #ffd166, #ef9b1a); }
+  .av-frac   { background: linear-gradient(135deg, #ef476f, #b6336c); }
+  .av-shapes { background: linear-gradient(135deg, #b388ff, #6a3eb8); }
+  .av-twos   { background: linear-gradient(135deg, #6c8aff, #3a4fb8); }
+  .av-num    { background: linear-gradient(135deg, var(--green), var(--green-700)); }
+  .past-item .info { min-width: 0; }
+  .past-item .top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .past-item .nm { font-weight: 700; font-size: 15px; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .past-item .when { color: var(--muted); font-size: 11.5px; flex-shrink: 0; font-weight: 600; }
+  .past-item .preview { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .past-item .preview svg { width: 14px; height: 14px; color: var(--tick); flex-shrink: 0; }
+  .past-item .star { color: var(--gold); font-size: 16px; flex-shrink: 0; }
+
+  /* "Notes home" footer card */
+  .notes-card {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    background: white;
+    border-radius: 14px;
+    padding: 22px 26px;
+    box-shadow: 0 6px 22px rgba(16,58,92,0.06);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 22px;
+    align-items: center;
+  }
+  .notes-card .ic {
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    background: rgba(247,179,43,0.18);
+    color: var(--gold);
+    display: grid; place-items: center;
+  }
+  .notes-card .ic svg { width: 30px; height: 30px; }
+  .notes-card h4 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; margin: 0; color: var(--navy); }
+  .notes-card p { margin: 2px 0 0; color: var(--muted); font-size: 13.5px; }
+  .notes-card a {
+    background: var(--navy); color: white; text-decoration: none;
+    padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  .notes-card a:hover { background: var(--navy-2); }
+
+  footer.foot {
+    background: var(--navy-2);
+    color: rgba(255,255,255,0.78);
+    padding: 22px 28px;
+    font-size: 12px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    margin-top: 24px;
+  }
+
+  .back {
+    position: fixed; top: 14px; right: 14px; z-index: 50;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+    color: var(--navy); text-decoration: none;
+    background: white; padding: 8px 12px; border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.18);
+  }
+  .back:hover { background: var(--gold); }
+</style>
+</head>
+<body>
+  <a class="back" href="index.html">← back</a>
+
+  <div class="ribbon">
+    <span>Trinity term · week 7 · Tuesday 6 May</span>
+    <div class="links"><a href="#">Parents</a><a href="#">Calendar</a><a href="#">Sign out</a></div>
+  </div>
+
+  <div class="masthead">
+    <div class="crest">M·F</div>
+    <div class="school-name"><small>Maths · Facts</small>Year 4 home learning</div>
+    <nav class="topnav">
+      <a class="active" href="#">Today</a>
+      <a href="#">Past lessons</a>
+      <a href="#">My character</a>
+      <a href="#">Settings</a>
+    </nav>
+  </div>
+
+  <div class="pageHead">
+    <p class="crumb">Hello, Freya</p>
+    <h1>Welcome back. There's a fresh <em>lesson</em> waiting from Mathsie.</h1>
+    <p class="lede">A short, focused topic each week — read the chat, tap “Start lesson” when you're ready. About 12 minutes, no homework to hand in.</p>
+  </div>
+
+  <main>
+    <!-- LEFT: this week's lesson, framed as chat -->
+    <section class="card">
+      <div class="card-head">
+        <h2>This week's lesson</h2>
+        <span class="live">Mathsie online</span>
+      </div>
+
+      <div class="week-banner">
+        <div class="week-portrait">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4">
+            <circle cx="50" cy="40" r="20"/>
+            <path d="M22 90c4-16 14-24 28-24s24 8 28 24"/>
+            <circle cx="42" cy="38" r="2.5" fill="currentColor"/>
+            <circle cx="58" cy="38" r="2.5" fill="currentColor"/>
+            <path d="M42 50c2 3 5 4 8 4s6-1 8-4"/>
+          </svg>
+          <span class="badge">7</span>
+        </div>
+        <div>
+          <h3>The <em>seven</em> times table</h3>
+          <p>Mrs Patel set this for Year 4 · about 12 minutes</p>
+        </div>
+      </div>
+
+      <div class="chat-bubbles">
+        <div class="day-stamp">TODAY · 09:02</div>
+        <div class="bub them">Hi Freya! Have you got your pencil?
+          <div class="when">9:02</div>
+        </div>
+        <div class="bub me">yep
+          <div class="when">9:03 <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg></div>
+        </div>
+        <div class="bub them">Brilliant. I've found a sneaky pattern in the seven times table. Tap “Start lesson” when you're ready and I'll show you.
+          <div class="when">9:03</div>
+        </div>
+      </div>
+
+      <div class="start-row">
+        <a class="start" href="#">
+          Start lesson
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="ghost" href="#">Read aloud</a>
+        <a class="ghost" href="#">Print worksheet</a>
+      </div>
+    </section>
+
+    <!-- RIGHT: past lessons / chat history -->
+    <section class="card">
+      <div class="card-head">
+        <h2>Past lessons</h2>
+        <span class="meta">04 saved</span>
+      </div>
+      <div class="past-list">
+        <a class="past-item" href="#">
+          <div class="av av-time">T</div>
+          <div class="info">
+            <div class="top"><span class="nm">Telling the time</span><span class="when">Tue</span></div>
+            <div class="preview"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg> You: Half past three!</div>
+          </div>
+          <span class="star">★</span>
+        </a>
+        <a class="past-item" href="#">
+          <div class="av av-frac">½</div>
+          <div class="info">
+            <div class="top"><span class="nm">Halves &amp; quarters</span><span class="when">Mon</span></div>
+            <div class="preview"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg> Mathsie: Lovely work!</div>
+          </div>
+          <span class="star">★</span>
+        </a>
+        <a class="past-item" href="#">
+          <div class="av av-shapes">⬡</div>
+          <div class="info">
+            <div class="top"><span class="nm">Shapes &amp; sides</span><span class="when">Last week</span></div>
+            <div class="preview"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg> A hexagon has 6 sides 👍</div>
+          </div>
+          <span class="star">★</span>
+        </a>
+        <a class="past-item" href="#">
+          <div class="av av-twos">2×</div>
+          <div class="info">
+            <div class="top"><span class="nm">The two-times table</span><span class="when">29 Apr</span></div>
+            <div class="preview"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg> You: 2, 4, 6, 8 — easy!</div>
+          </div>
+          <span class="star">★</span>
+        </a>
+        <a class="past-item" href="#">
+          <div class="av av-num">10</div>
+          <div class="info">
+            <div class="top"><span class="nm">Counting in tens</span><span class="when">22 Apr</span></div>
+            <div class="preview"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10l4 4 10-10M7 10l4 4 5-5"/></svg> 10, 20, 30, 40, 50…</div>
+          </div>
+          <span class="star">★</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- NOTE TO PARENTS -->
+    <div class="notes-card">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div>
+        <h4>A note for grown-ups</h4>
+        <p>Mathsie is a friendly chatbot. Lessons are gentle and never longer than 15 minutes. There's nothing to mark or hand in.</p>
+      </div>
+      <a href="#">Read more</a>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <span>© Maths-Facts · made for Year 4 at home</span>
+    <span>Privacy · Terms · Contact</span>
+  </footer>
+</body>
+</html>
