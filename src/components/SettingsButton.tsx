@@ -7,10 +7,7 @@ export default function SettingsButton() {
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="text-sm text-gray-600 hover:text-gray-900 font-bold transition-colors"
-      >
+      <button onClick={() => setOpen(true)}>
         &#x2699;&#xFE0F; Settings
       </button>
       <SettingsModal open={open} onClose={() => setOpen(false)} />

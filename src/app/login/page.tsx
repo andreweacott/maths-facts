@@ -7,60 +7,70 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-    if (res.ok) {
-      router.push("/");
-    } else {
+    setError("");
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      if (res.ok) {
+        router.push("/");
+        return;
+      }
       setError("Invalid username or password");
+    } catch {
+      setError("Network error — please try again");
+    } finally {
+      setSubmitting(false);
     }
   }
 
   return (
-    <main className="max-w-md mx-auto mt-16 p-2">
-      <div className="card-fun animate-slide-up space-y-6">
-        <div className="text-center">
-          <p className="text-5xl mb-2 animate-pop-in">&#x1F44B;</p>
-          <h1 className="text-4xl font-extrabold text-black">Welcome back!</h1>
-          <p className="font-medium text-lg mt-1 text-black">Log in to continue learning</p>
-        </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <main className="w-stage">
+      <div className="w-card">
+        <p className="w-eyebrow">Welcome back</p>
+        <h1 className="w-h1">Hello <em>again.</em></h1>
+        <p className="w-sub">Log in to keep learning with Mathsie.</p>
+
+        <form onSubmit={handleSubmit} className="w-form">
           <div>
-            <label className="block text-sm font-extrabold text-black mb-1">Username</label>
+            <label className="w-label">Username</label>
             <input
-              className="input-fun"
+              className="w-input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              autoFocus
             />
           </div>
           <div>
-            <label className="block text-sm font-extrabold text-black mb-1">Password</label>
+            <label className="w-label">Password</label>
             <input
               type="password"
-              className="input-fun"
+              className="w-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          {error && <p className="text-red-500 text-sm font-bold">&#x274C; {error}</p>}
-          <button type="submit" className="w-full btn-fun text-xl">
-            Let&apos;s go! &#x1F680;
+          {error && <p className="w-error">{error}</p>}
+          <button type="submit" disabled={submitting} className="w-btn-primary">
+            {submitting ? "Logging in…" : "Log in"}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </button>
-          <p className="text-base text-center text-gray-700">
-            New here?{" "}
-            <a href="/signup" className="font-extrabold transition-colors text-black underline">
-              Sign up! &#x2728;
-            </a>
-          </p>
         </form>
+
+        <p className="w-foot-link">
+          New here? <a href="/signup">Sign up</a>
+        </p>
       </div>
     </main>
   );

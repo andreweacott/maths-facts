@@ -20,29 +20,26 @@ export default function NewTopicPage() {
   }
 
   return (
-    <main className="max-w-2xl mx-auto mt-10 p-2">
-      <div className="card-fun animate-slide-up space-y-5">
-        <div className="text-center">
-          <p className="text-5xl mb-2 animate-pop-in">&#x1F4DD;</p>
-          <h1 className="text-4xl font-extrabold text-black">This week&apos;s topic</h1>
-          <p className="font-bold mt-1 text-gray-700">
-            Type or paste what it says on your homework sheet
-          </p>
-        </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <main className="w-stage">
+      <div className="w-card wide">
+        <p className="w-eyebrow">A new lesson</p>
+        <h1 className="w-h1">What shall we <em>learn</em> today?</h1>
+        <p className="w-sub">Type or paste what it says on your homework sheet — Mathsie will turn it into a friendly lesson.</p>
+
+        <form onSubmit={handleSubmit} className="w-form">
           <textarea
-            className="input-fun h-48 resize-none"
+            className="w-input"
+            style={{ minHeight: 180, resize: "vertical", lineHeight: 1.55 }}
             placeholder="e.g. Place value — include a hundreds, tens and ones chart and show how the same digit can have different values."
             value={rawInput}
             onChange={(e) => setRawInput(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full btn-fun text-2xl py-5"
-          >
-            {loading ? "✨ Getting ideas... ✨" : "🚀 Go! 🚀"}
+          <button type="submit" disabled={loading} className="w-btn-green">
+            {loading ? "Getting ideas…" : "Begin lesson"}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </button>
         </form>
       </div>

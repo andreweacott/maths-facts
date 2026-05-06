@@ -14,10 +14,10 @@ export default function ChatInput({ onSend, disabled }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3 p-4 bg-white/90 backdrop-blur-md border-t-2 border-purple-100">
+    <form onSubmit={handleSubmit} className="hs-compose">
+      <span className="ic">😊</span>
       <input
-        className="flex-1 rounded-full border-3 border-purple-200 px-5 py-3 text-base bg-white text-gray-900 focus:outline-none focus:border-pink-400 focus:shadow-[0_0_0_4px_rgba(236,72,153,0.2)] transition-all"
-        placeholder="Ask a question... &#x1F4AC;"
+        placeholder="Type a message…"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={disabled}
@@ -25,9 +25,12 @@ export default function ChatInput({ onSend, disabled }: Props) {
       <button
         type="submit"
         disabled={disabled || !value.trim()}
-        className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 text-white text-lg flex items-center justify-center disabled:opacity-30 shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all"
+        className="send"
+        aria-label="Send"
       >
-        &#x27A4;
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+          <path d="m3 11 18-8-8 18-2-7-8-3z" />
+        </svg>
       </button>
     </form>
   );

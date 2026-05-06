@@ -158,14 +158,14 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
         <label
           htmlFor={inputId}
           onClick={handlePicturesClick}
-          className={`cursor-pointer px-3 py-1 rounded text-sm font-bold ${mode === "upload" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
+          className={`cursor-pointer px-3 py-1 rounded text-sm font-bold ${mode === "upload" ? "bg-orange-500 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
         >
           {uploading ? "Uploading..." : "🖼️ From photos"}
         </label>
         <button
           type="button"
           onClick={() => setMode("library")}
-          className={`px-3 py-1 rounded text-sm font-bold ${mode === "library" ? "bg-indigo-600 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
+          className={`px-3 py-1 rounded text-sm font-bold ${mode === "library" ? "bg-orange-500 text-white" : "bg-white ring-2 ring-gray-200 text-gray-700"}`}
         >
           Choose character
         </button>
@@ -196,7 +196,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
                 type="button"
                 onClick={handleSnap}
                 disabled={uploading}
-                className="px-4 py-2 rounded font-bold bg-indigo-600 text-white disabled:opacity-50"
+                className="px-4 py-2 rounded font-bold bg-orange-500 text-white disabled:opacity-50"
               >
                 {uploading ? "Uploading..." : "📸 Snap"}
               </button>
@@ -221,7 +221,7 @@ export default function ImagePicker({ label, field, onSelected }: Props) {
                 src={src}
                 alt=""
                 className={`w-16 h-16 rounded-full object-cover border-4 ${
-                  preview === src ? "border-indigo-600" : "border-transparent"
+                  preview === src ? "border-orange-500" : "border-transparent"
                 }`}
               />
             </button>
