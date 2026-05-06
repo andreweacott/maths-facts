@@ -6,17 +6,6 @@ import BackgroundPicker from "@/components/BackgroundPicker";
 import ImagePicker from "@/components/ImagePicker";
 import { useTheme } from "@/components/ThemeProvider";
 
-const THEMES = [
-  { id: "candy", name: "Candy", character: "/avatars/unicorn.svg", preview: "linear-gradient(135deg, #a78bfa, #c084fc, #f0abfc)" },
-  { id: "ocean", name: "Ocean", character: "/avatars/penguin.svg", preview: "linear-gradient(135deg, #0077b6, #00b4d8, #90e0ef)" },
-  { id: "sunset", name: "Sunset", character: "/avatars/sun.svg", preview: "linear-gradient(135deg, #f97316, #ef4444, #ec4899)" },
-  { id: "forest", name: "Forest", character: "/avatars/owl.svg", preview: "linear-gradient(135deg, #065f46, #10b981, #6ee7b7)" },
-  { id: "bubblegum", name: "Bubblegum", character: "/avatars/bunny.svg", preview: "linear-gradient(135deg, #f472b6, #fb7185, #fda4af)" },
-  { id: "golden", name: "Golden", character: "/avatars/cat.svg", preview: "linear-gradient(135deg, #b45309, #d97706, #fbbf24)" },
-  { id: "arctic", name: "Arctic", character: "/avatars/polar-bear.svg", preview: "linear-gradient(135deg, #bae6fd, #e0f2fe, #f0f9ff)" },
-  { id: "space", name: "Space", character: "/avatars/astronaut.svg", preview: "linear-gradient(135deg, #0f0c29, #302b63, #24243e)" },
-];
-
 const FONTS = [
   { id: "comic-sans", name: "Comic Sans", preview: "Comic Sans MS" },
   { id: "rounded", name: "Rounded", preview: "Nunito" },
@@ -246,19 +235,6 @@ export default function SettingsModal({ open, onClose }: Props) {
                 >
                   <p className="font-extrabold text-base">{y.replace("Year ", "")}</p>
                   <p className="text-xs text-gray-600">Year</p>
-                </PickerButton>
-              ))}
-            </div>
-          </Section>
-
-          {/* Theme */}
-          <Section title="&#x1F3A8; App theme">
-            <div className="grid grid-cols-4 gap-2">
-              {THEMES.map((t) => (
-                <PickerButton key={t.id} selected={current("theme", "candy") === t.id} onClick={() => preview({ theme: t.id })}>
-                  <div className="w-full h-10 rounded-lg mb-1" style={{ background: t.preview }} />
-                  <img src={t.character} alt={t.name} className="w-10 h-10 mx-auto rounded-full" />
-                  <p className="font-extrabold text-xs">{t.name}</p>
                 </PickerButton>
               ))}
             </div>
