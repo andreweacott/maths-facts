@@ -19,31 +19,44 @@ export default function SetupPage() {
   const router = useRouter();
 
   return (
-    <main className="max-w-md mx-auto mt-16 p-2">
-      <div className="card-fun animate-slide-up space-y-6 stagger-children">
-        <div className="text-center animate-slide-up">
-          <h1 className="text-3xl font-extrabold text-black">Add your pictures</h1>
-          <p className="text-gray-600 text-base mt-1">A grown-up can help with this part.</p>
+    <main className="w-stage">
+      <div className="w-card wide">
+        <p className="w-eyebrow">Almost there</p>
+        <h1 className="w-h1">Add a couple of <em>pictures.</em></h1>
+        <p className="w-sub">A grown-up can help with this part. You can change them later in Settings.</p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          <div>
+            <p style={{ fontFamily: "Fraunces, serif", fontSize: 20, fontWeight: 600, color: "var(--w-plum)", margin: "0 0 10px" }}>Your profile picture</p>
+            <ImagePicker
+              label=""
+              field="profile"
+              onSelected={(path) => saveImagePath("profile", path)}
+            />
+          </div>
+
+          <div className="w-divider"></div>
+
+          <div>
+            <p style={{ fontFamily: "Fraunces, serif", fontSize: 20, fontWeight: 600, color: "var(--w-plum)", margin: "0 0 10px" }}>Your maths character</p>
+            <ImagePicker
+              label=""
+              field="character"
+              onSelected={(path) => saveImagePath("character", path)}
+            />
+          </div>
         </div>
-        <div className="animate-slide-up">
-          <ImagePicker
-            label="Your profile picture"
-            field="profile"
-            onSelected={(path) => saveImagePath("profile", path)}
-          />
-        </div>
-        <div className="animate-slide-up">
-          <ImagePicker
-            label="Your maths character"
-            field="character"
-            onSelected={(path) => saveImagePath("character", path)}
-          />
-        </div>
+
+        <div className="w-divider"></div>
+
         <button
           onClick={() => router.push("/")}
-          className="w-full btn-fun text-lg animate-slide-up"
+          className="w-btn-primary"
         >
-          Let&apos;s go! &rarr;
+          Take me home
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
         </button>
       </div>
     </main>

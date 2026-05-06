@@ -13,6 +13,7 @@ export type UserSettings = {
   chatBackground?: string;        // filename from /backgrounds/
   characterPanelBackground?: string; // filename from /backgrounds/ or a CSS colour
   characterPosition?: "left" | "right";
+  year?: string; // "Year 1" .. "Year 6"
 };
 
 export type DiagramData = {

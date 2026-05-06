@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "next/navigation";
-import CharacterPanel from "@/components/CharacterPanel";
+import { useParams, useRouter } from "next/navigation";
 import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
 
@@ -9,6 +8,7 @@ type Message = { id: number; role: "user" | "assistant"; content: string };
 type Topic = { id: number; title: string; rawInput: string };
 
 export default function ChatPage() {
+  const router = useRouter();
   const { topicId } = useParams<{ topicId: string }>();
   const [topic, setTopic] = useState<Topic | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -16,7 +16,6 @@ export default function ChatPage() {
     characterImagePath: string | null;
     characterName: string;
     profileImagePath: string | null;
-    settings: Record<string, string>;
   } | null>(null);
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -34,6 +33,7 @@ export default function ChatPage() {
         }
       });
     fetch("/api/auth/me").then((r) => r.json()).then(setUser);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicId]);
 
   useEffect(() => {
@@ -65,63 +65,68 @@ export default function ChatPage() {
     setLoading(false);
   }
 
-  const charPosition = (user?.settings?.characterPosition as "left" | "right") ?? "left";
-  const chatBg = user?.settings?.chatBackground;
-  const panelBg = user?.settings?.characterPanelBackground ?? "#4f46e5";
-
-  const chatBgStyle = chatBg
-    ? { backgroundImage: `url(/backgrounds/${chatBg})`, backgroundSize: "cover", backgroundPosition: "center" }
-    : { backgroundColor: "#f1f5f9" };
-
-  const reaction = loading ? "thinking" as const : messages.length > 0 ? "celebrating" as const : "waving" as const;
-
-  const panel = (
-    <CharacterPanel
-      characterImagePath={user?.characterImagePath ?? null}
-      characterName={user?.characterName ?? "Mathsie"}
-      panelBackground={panelBg}
-      reaction={reaction}
-    />
-  );
+  const characterName = user?.characterName ?? "Mathsie";
 
   return (
-    <div className="flex flex-col h-[calc(100vh-56px)]">
-      <div className="px-5 py-2.5 bg-white/90 backdrop-blur-sm border-b border-indigo-100 text-sm font-extrabold text-black">
-        {topic?.title ?? "Loading..."}
-      </div>
-      <div className="flex flex-1 overflow-hidden">
-        {charPosition === "left" && panel}
-        <div className="flex-1 flex flex-col overflow-hidden" style={chatBgStyle}>
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {messages.map((m) => (
-              <ChatMessage
-                key={m.id}
-                role={m.role}
-                content={m.content}
-                characterImagePath={user?.characterImagePath ?? null}
-                userProfileImagePath={user?.profileImagePath ?? null}
-                characterPosition={charPosition}
-              />
-            ))}
-            {loading && (
-              <div className="flex gap-2.5 items-start animate-message-in">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-300 to-purple-400 flex-shrink-0 animate-pulse shadow-sm" />
-                <div className="bg-white/95 border border-indigo-100 rounded-2xl rounded-tl-none px-4 py-3 text-sm text-gray-600 font-medium shadow-md">
-                  <span className="inline-flex gap-1">
-                    Thinking
-                    <span className="animate-bounce" style={{animationDelay: "0ms"}}>.</span>
-                    <span className="animate-bounce" style={{animationDelay: "150ms"}}>.</span>
-                    <span className="animate-bounce" style={{animationDelay: "300ms"}}>.</span>
-                  </span>
-                </div>
-              </div>
-            )}
-            <div ref={bottomRef} />
+    <div className="hs-thread" style={{ height: "calc(100vh - 64px)" }}>
+      <header className="hs-threadhead">
+        <div className="who">
+          {user?.characterImagePath ? (
+            <img src={user.characterImagePath} alt={characterName} />
+          ) : (
+            <div className="hs-av hs-av-mathsie" style={{ width: 42, height: 42, fontSize: 16 }}>
+              {(characterName || "M").charAt(0).toUpperCase()}
+            </div>
+          )}
+          <div>
+            <h2>{topic?.title ?? characterName}</h2>
+            <div className="status">{characterName} · {loading ? "thinking…" : "online"}</div>
           </div>
-          <ChatInput onSend={sendMessage} disabled={loading} />
         </div>
-        {charPosition === "right" && panel}
+        <button
+          onClick={() => router.push("/")}
+          style={{
+            background: "none",
+            border: "1px solid var(--w-rule)",
+            color: "var(--w-plum)",
+            padding: "6px 12px",
+            borderRadius: 999,
+            fontSize: 12,
+            fontWeight: 700,
+            cursor: "pointer",
+            letterSpacing: "0.04em",
+          }}
+        >
+          ← All lessons
+        </button>
+      </header>
+
+      <div className="hs-messages">
+        <div className="hs-day">{topic ? new Date().toLocaleDateString([], { weekday: "long" }).toUpperCase() : "LOADING"}</div>
+        {messages.map((m) => (
+          <ChatMessage
+            key={m.id}
+            role={m.role}
+            content={m.content}
+            characterImagePath={user?.characterImagePath ?? null}
+            userProfileImagePath={user?.profileImagePath ?? null}
+            characterPosition="left"
+          />
+        ))}
+        {loading && (
+          <div className="hs-msg them" style={{ opacity: 0.85 }}>
+            <span style={{ display: "inline-flex", gap: 4 }}>
+              {characterName} is thinking
+              <span className="animate-bounce" style={{ animationDelay: "0ms" }}>.</span>
+              <span className="animate-bounce" style={{ animationDelay: "150ms" }}>.</span>
+              <span className="animate-bounce" style={{ animationDelay: "300ms" }}>.</span>
+            </span>
+          </div>
+        )}
+        <div ref={bottomRef} />
       </div>
+
+      <ChatInput onSend={sendMessage} disabled={loading} />
     </div>
   );
 }

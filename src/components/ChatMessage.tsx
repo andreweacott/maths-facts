@@ -24,13 +24,21 @@ export default function ChatMessage({
   const isCharacter = role === "assistant";
   const isRight = (isCharacter && characterPosition === "right") || (!isCharacter && characterPosition === "left");
 
-  // Character messages take full width, user messages are compact
   if (isCharacter) {
     return (
-      <div className="animate-message-in w-full">
+      <div className="animate-message-in" style={{ alignSelf: "flex-start", maxWidth: "92%", width: "100%" }}>
         <div
-          className="bg-white border-2 border-purple-100 shadow-lg rounded-tl-none px-6 py-4 text-base text-gray-900 space-y-3 overflow-x-auto"
-          style={{ borderRadius: `var(--bubble-radius, 1.25rem)` }}
+          style={{
+            background: "white",
+            borderRadius: "14px",
+            borderTopLeftRadius: "4px",
+            padding: "14px 18px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+            color: "#2a2330",
+            fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+            fontSize: "15px",
+            lineHeight: 1.55,
+          }}
         >
           {parts.map((part, i) => {
             if (part.type === "text") return (
@@ -48,21 +56,29 @@ export default function ChatMessage({
   }
 
   return (
-    <div className={`flex gap-3 items-start animate-message-in ${isRight ? "flex-row-reverse" : ""}`}>
-      <div className="flex-shrink-0 w-10 h-10">
-        {userProfileImagePath && (
-          <img src={userProfileImagePath} className="w-10 h-10 rounded-full object-cover border-2 border-pink-300 shadow-md" alt="" />
-        )}
-      </div>
+    <div className="animate-message-in" style={{ alignSelf: "flex-end", display: "flex", gap: 10, alignItems: "flex-start", flexDirection: isRight ? "row-reverse" : "row", maxWidth: "76%" }}>
+      {userProfileImagePath && (
+        <img
+          src={userProfileImagePath}
+          alt=""
+          style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover", flexShrink: 0, border: "2px solid white", boxShadow: "0 1px 3px rgba(0,0,0,0.12)" }}
+        />
+      )}
       <div
-        className="max-w-[80%] rounded-tr-none px-5 py-3.5 text-base text-white shadow-lg"
         style={{
-          background: `linear-gradient(135deg, var(--bubble-from, #8b5cf6), var(--bubble-to, #6366f1))`,
-          borderRadius: `var(--bubble-radius, 1.25rem)`,
+          background: "#dff7e1",
+          borderRadius: "14px",
+          borderTopRightRadius: "4px",
+          padding: "10px 14px",
+          color: "#2a2330",
+          fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+          fontSize: "15px",
+          lineHeight: 1.45,
+          boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
         }}
       >
         {parts.map((part, i) => {
-          if (part.type === "text") return <p key={i}>{part.text}</p>;
+          if (part.type === "text") return <p key={i} style={{ margin: 0 }}>{part.text}</p>;
           return null;
         })}
       </div>
